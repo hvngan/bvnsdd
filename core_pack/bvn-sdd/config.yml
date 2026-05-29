@@ -1,0 +1,24 @@
+# BVN-SDD project configuration
+version: "0.1.0"
+
+# Default right-sizing mode for new tickets.
+# M0 Advisory | M1 Light | M2 Standard | M3 Plus | M4 Heavy | M5 Critical
+default_mode: M2
+
+# Where per-ticket artifacts live, relative to the project root.
+tickets_dir: docs/changes
+
+# Templates copied into each new ticket folder by /sdd-new.
+ticket_artifacts:
+  - spec-pack.md
+  - source-availability.md
+  - open-issues.md
+  - context.md
+  - source-map.md
+  - impact-analysis.md
+  - impl-plan.md
+  - review-checklist.md
+  - self-review.md
+  - test-plan.md
+  - test-results.md
+  - report.md

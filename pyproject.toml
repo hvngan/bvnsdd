@@ -1,0 +1,38 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "bvn-sdd-cli"
+version = "0.1.0"
+description = "BVN-SDD CLI — scaffold and drive the BVN Spec-Driven Development workflow with Claude Code, the way spec-kit does for spec-driven development."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Proprietary" }
+authors = [{ name = "BVN" }]
+keywords = ["sdd", "spec-driven-development", "claude-code", "bvn"]
+dependencies = [
+    "typer>=0.12.0",
+    "rich>=13.0.0",
+]
+
+[project.scripts]
+bvn-sdd = "bvn_sdd_cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/bvn_sdd_cli"]
+# Bundle the asset pack inside the package so `init` works fully offline,
+# matching the installed CLI version (same approach as spec-kit's core_pack).
+force-include = { "core_pack" = "bvn_sdd_cli/core_pack" }
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "src/bvn_sdd_cli",
+    "core_pack",
+    "tests",
+    "README.md",
+    "pyproject.toml",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0.0"]
