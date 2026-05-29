@@ -17,15 +17,21 @@ project, and the `/sdd-*` commands guide the rest.
 Requires **Python 3.11+**. Pick one:
 
 ```bash
-# one-off, no install (needs uv)
-uvx --from git+https://github.com/<org>/bvn-sdd-cli.git bvn-sdd init my-project
-
-# install as a tool
-uv tool install bvn-sdd-cli        # or: pipx install bvn-sdd-cli
-
-# from a local checkout (development)
+# from a local checkout (works today)
 pip install -e .
+
+# one-off from the git repo, no install (needs uv)
+uvx --from git+https://github.com/hvngan/bvnsdd.git bvn-sdd init my-project
+
+# install as a tool from the git repo
+uv tool install git+https://github.com/hvngan/bvnsdd.git
+# or:
+pipx install git+https://github.com/hvngan/bvnsdd.git
 ```
+
+> Not yet published to a package index, so install from the git repo or a local
+> checkout. If the `bvn-sdd` command isn't on your PATH after install, run it via
+> `python -m bvn_sdd_cli` instead.
 
 ## Quickstart
 
@@ -84,6 +90,7 @@ my-project/
 │   ├── templates/           # one template per artifact
 │   └── scripts/             # create-ticket (PowerShell + bash)
 └── docs/
+    ├── QUICKSTART.md        # one-page employee field guide (Vietnamese)
     ├── architecture/        # system-map.md (filled by /sdd-map)
     ├── standards/           # coding, review, testing, security (stubs)
     ├── maintenance/         # failure-mode-index.md, pattern-library.md
