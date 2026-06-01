@@ -70,11 +70,14 @@ Each command fills a concrete artifact under `docs/changes/T-001/`.
 | `/sdd-map` | 0-B Source Intelligence | `docs/architecture/*` |
 | `/sdd-new <T>` | bootstrap | ticket folder + blank artifacts |
 | `/sdd-spec <T>` | 1 Investigation | `spec-pack.md`, `source-availability.md`, `open-issues.md` |
+| `/sdd-rightsize <T>` | 1-B Mode Decision | `mode-decision.md` — adapted workflow (M1–M5/MX) |
 | `/sdd-context <T>` | 2 Context/Rules | `context.md`, `source-map.md` |
 | `/sdd-plan <T>` | 3 Impact/Plan | `impact-analysis.md`, `impl-plan.md` |
 | `/sdd-implement <T>` | 5 Implement | code + `self-review.md` |
 | `/sdd-test <T>` | 6 Test | `test-plan.md`, `test-results.md` |
+| `/sdd-blackbox <T>` | 7 Black-box Test | `blackbox-testcases.md` (skipped for M1) |
 | `/sdd-report <T>` | 8 Report | `report.md` |
+| `/sdd-compact <T>` | any — utility | `strategic-compact.md` — session snapshot for handoff/resume |
 
 ## What `init` creates
 

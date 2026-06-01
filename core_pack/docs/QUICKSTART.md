@@ -12,21 +12,28 @@ bvn-sdd init du-an-cua-toi   # tạo khung dự án mới (hoặc: bvn-sdd init 
 
 Sau đó **mở dự án trong Claude Code**.
 
-## 2. Quy trình 7 bước cho mỗi công việc
+## 2. Quy trình cho mỗi công việc
 
 | Bước | Gõ lệnh trong Claude Code | Tạo ra gì | Bạn làm gì |
 |---|---|---|---|
 | 0 | `/sdd-map` | bản đồ source (`docs/architecture/`) | **Chỉ 1 lần/dự án.** Để AI hiểu code |
 | 1 | `/sdd-new T-001` | thư mục ticket + các file trống | Đặt mã ticket (vd `T-001`) |
 | 2 | `/sdd-spec T-001` | `spec-pack.md` (đặc tả) | Kiểm tra AC đúng chưa, trả lời Open Issues |
-| 3 | `/sdd-context T-001` | `context.md`, `source-map.md` | Xác nhận pattern/API đúng |
-| 4 | `/sdd-plan T-001` | `impact-analysis.md`, `impl-plan.md` | Duyệt phạm vi ảnh hưởng & kế hoạch |
+| 2B | `/sdd-rightsize T-001` | `mode-decision.md` — chế độ M1–M5 | **Quan trọng:** xác nhận chế độ & workflow phù hợp |
+| 3 | `/sdd-context T-001` | `context.md`, `source-map.md` | Xác nhận pattern/API đúng _(bỏ qua nếu M1)_ |
+| 4 | `/sdd-plan T-001` | `impact-analysis.md`, `impl-plan.md` | Duyệt phạm vi ảnh hưởng & kế hoạch _(bỏ qua nếu M1)_ |
 | 5 | `/sdd-implement T-001` | code + `self-review.md` | Đọc code AI viết, duyệt |
 | 6 | `/sdd-test T-001` | `test-plan.md`, `test-results.md` | Xem test có PASS thật không |
-| 7 | `/sdd-report T-001` | `report.md` | Đọc báo cáo cuối, chốt |
+| 7 | `/sdd-blackbox T-001` | `blackbox-testcases.md` | Xác minh hành vi từ góc nhìn user _(bỏ qua nếu M1)_ |
+| 8 | `/sdd-report T-001` | `report.md` | Đọc báo cáo cuối, chốt |
 
-> Việc nhỏ (sửa text, thêm log)? Có thể bỏ qua bước 3 và làm gọn. Việc đụng tới
-> DB / thanh toán / quyền / PII? Làm đủ các bước và **báo người phụ trách**.
+**Chế độ (do `/sdd-rightsize` quyết định):**
+- **M1 Light** — Bug nhỏ, sửa text, config: chạy bước 2 → 5 → 6 → 8. Bỏ 2B, 3, 4, 7.
+- **M2 Standard** — Feature thông thường: chạy đủ tất cả bước.
+- **M3+ Heavy** — Đụng kiến trúc/DB/nhiều service: chạy đủ + security review.
+
+**Lệnh tiện ích (dùng bất cứ lúc nào):**
+- `/sdd-compact T-001` → tạo `strategic-compact.md` — snapshot trạng thái session để tiếp tục hôm khác.
 
 ## 3. 5 nguyên tắc bắt buộc
 

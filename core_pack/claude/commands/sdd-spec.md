@@ -31,6 +31,7 @@ Instructions:
 - Do a rough classification of impact across FE / BE / DB / Security / Operation
   / Test, and fill the **Complexity Classification** section.
 
-When done: report the recommended mode (Light / Standard / Heavy), list open
-issues needing human decisions, and tell the user to run `/sdd-context
-$ARGUMENTS` next.
+When done: report the preliminary mode recommendation (Light / Standard / Heavy),
+list open issues needing human decisions, and tell the user to run
+`/sdd-rightsize $ARGUMENTS` next to formalise the mode decision before
+proceeding to `/sdd-context`.
