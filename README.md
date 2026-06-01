@@ -59,7 +59,7 @@ Each command fills a concrete artifact under `docs/changes/T-001/`.
 
 | Command | Description |
 |---|---|
-| `bvn-sdd init [NAME]` | Scaffold `.claude/`, `.bvn-sdd/`, `docs/` into a project. Flags: `--here`, `--force`, `--no-git`. |
+| `bvn-sdd init [NAME]` | Scaffold `.claude/`, `.bvn-sdd/`, `docs/` into a project. Flags: `--here`, `--force`, `--no-git`, `--lang vi\|en\|ja` (prompted interactively if omitted). |
 | `bvn-sdd check` | Verify `git` and `claude` are on PATH. |
 | `bvn-sdd version` | Show the CLI version. |
 

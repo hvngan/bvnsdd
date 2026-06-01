@@ -1,8 +1,13 @@
 # BVN-SDD project configuration
 version: "0.1.0"
 
+# Language for AI responses and all generated documents.
+# Set by `bvn-sdd init --lang <code>`. Do not edit manually.
+# Supported: vi (Tiếng Việt) | en (English) | ja (日本語)
+language: vi
+
 # Default right-sizing mode for new tickets.
-# M0 Advisory | M1 Light | M2 Standard | M3 Plus | M4 Heavy | M5 Critical
+# M1 Light | M2 Standard | M3 Plus | M4 Heavy | M5 Critical
 default_mode: M2
 
 # Where per-ticket artifacts live, relative to the project root.
@@ -13,6 +18,7 @@ ticket_artifacts:
   - spec-pack.md
   - source-availability.md
   - open-issues.md
+  - mode-decision.md
   - context.md
   - source-map.md
   - impact-analysis.md
@@ -21,4 +27,6 @@ ticket_artifacts:
   - self-review.md
   - test-plan.md
   - test-results.md
+  - blackbox-testcases.md
+  - strategic-compact.md
   - report.md
