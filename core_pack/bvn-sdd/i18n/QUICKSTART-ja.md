@@ -1,59 +1,68 @@
 # BVN-SDD — クイックスタート（1ページ）
+# Brycen Viet Nam — Spec-Driven Development
 
 > **コマンドを実行するだけ** — ドキュメントをすべて読む必要はありません。
-> 各コマンドの結果は `docs/changes/<チケットID>/` に保存されます。
+> 各コマンドは SDD-Installation Pack V04.2 のフェーズに対応し、
+> `docs/changes/<チケットID>/` に具体的なアーティファクトファイルを生成します。
 
 ## 1. セットアップ（1回だけ）
 
 ```bash
 bvn-sdd check              # git + Claude Code が利用可能か確認
-bvn-sdd init my-project    # 新規プロジェクトを作成（または: bvn-sdd init --here）
+bvn-sdd init my-project    # プロジェクトを作成（または: bvn-sdd init --here）
 ```
+
+言語を選択してください: 1=Tiếng Việt / 2=English / 3=日本語
 
 次に **Claude Code でプロジェクトを開きます**。
 
-## 2. チケットごとのワークフロー
+## 2. SDD-Installation Pack V04.2 のフェーズ
 
-| ステップ | Claude Code で入力 | 生成されるもの | あなたが行うこと |
+| フェーズ（V04.2） | Claude Code コマンド | 生成されるもの | あなたが行うこと |
 |---|---|---|---|
-| 0 | `/sdd-map` | ソースマップ（`docs/architecture/`） | **プロジェクトごとに1回。** AIがコードベースを把握するため |
-| 1 | `/sdd-new T-001` | チケットフォルダ＋空のアーティファクト | チケットIDを設定（例: `T-001`） |
-| 2 | `/sdd-spec T-001` | `spec-pack.md`（仕様書） | ACが正しいか確認；Open Issuesに回答 |
-| 2B | `/sdd-rightsize T-001` | `mode-decision.md` — モードM1〜M5 | **重要:** モードと適応ワークフローを確認 |
-| 3 | `/sdd-context T-001` | `context.md`、`source-map.md` | パターン/APIを確認 _（M1はスキップ可）_ |
-| 4 | `/sdd-plan T-001` | `impact-analysis.md`、`impl-plan.md` | 影響範囲と計画をレビュー _（M1はスキップ可）_ |
-| 5 | `/sdd-implement T-001` | コード＋`self-review.md` | AIが書いたコードを読んで承認 |
-| 6 | `/sdd-test T-001` | `test-plan.md`、`test-results.md` | テストが実際にPASSするか確認 |
-| 7 | `/sdd-blackbox T-001` | `blackbox-testcases.md` | ユーザー視点から動作を検証 _（M1はスキップ可）_ |
-| 8 | `/sdd-report T-001` | `report.md` | 最終レポートを読んで承認 |
+| **Phase 0-B** Common Base / Source Intelligence | `/sdd-map` | `docs/architecture/` — ソースマップ、ルート、API、DBスキーマ | **プロジェクトごとに1回。** 最初のチケット前に実行 |
+| **Bootstrap**（Phase 1の前） | `/sdd-new T-001` | `docs/changes/T-001/` + すべての空のアーティファクトファイル | チケットIDを設定 |
+| **Phase 1** Investigation / Spec Pack | `/sdd-spec T-001` | `spec-pack.md`、`source-availability.md`、`open-issues.md` | ACが正しいか確認；Open Issuesに回答 |
+| **Phase 1** Right-sizing | `/sdd-rightsize T-001` | `mode-decision.md` — モード M1–M5/MX + 適応ワークフロー | **重要:** 続行前にモードを確認 |
+| **Phase 2** Ticket Context / Rules | `/sdd-context T-001` | `context.md`、`source-map.md` | パターン、実在するメソッド、禁止パターンを確認 *（M1はスキップ）* |
+| **Phase 3** Impact Analysis / Impl Plan | `/sdd-plan T-001` | `impact-analysis.md`、`impl-plan.md` | FE/BE/DBの影響範囲と計画をレビュー *（M1はスキップ）* |
+| **Phase 4+5** Review Checklist + Implementation / AI Review / Human Review | `/sdd-implement T-001` | コード + `review-checklist.md`、`self-review.md` | AIが書いたコードを読む；セルフレビューを確認；承認 |
+| **Phase 6** Test Plan / Test Code | `/sdd-test T-001` | `test-plan.md`、`test-results.md` | テストが実際にPASSするか確認；結果を読む |
+| **Phase 7** Black-box Test / Test Data | `/sdd-blackbox T-001` | `blackbox-testcases.md` | ユーザー/QAの視点から動作を検証 *（M1はスキップ）* |
+| **Phase 8** Test Results / Final Report | `/sdd-report T-001` | `report.md` | 最終レポートを読む；accepted riskとフォローアップを確認 |
 
-**モード（`/sdd-rightsize` が決定）:**
-- **M1 Light** — バグ修正・テキスト変更・設定変更: ステップ 2 → 5 → 6 → 8。2B、3、4、7はスキップ。
-- **M2 Standard** — 通常の機能開発: すべてのステップを実行。
-- **M3+ Heavy** — アーキテクチャ/DB/マルチサービス: すべてのステップ＋セキュリティレビュー。
+**ユーティリティ**（Spec 32 — Long Context / Strategic Compact）:
+- `/sdd-compact T-001` → `strategic-compact.md` — セッションスナップショット。新しいセッションの冒頭に貼り付けて、すべてを再読せずに再開できます。
 
-**ユーティリティコマンド（いつでも使用可）:**
-- `/sdd-compact T-001` → `strategic-compact.md` を作成 — 別の日に作業を再開するためのセッションスナップショット。
+## 3. モード（`/sdd-rightsize` が決定）
 
-## 3. 5つの必須ルール
+| モード | 名前 | 使用時期 | スキップするコマンド |
+|---|---|---|---|
+| **M1** | Light | テキスト修正、設定、3ファイル未満の小さなバグ | context、plan、blackbox |
+| **M2** | Standard | 通常の機能開発、単一サービス | なし |
+| **M3** | Plus | FE+BEコントラクト変更、10〜30ファイル | なし |
+| **M4** | Heavy | アーキテクチャ変更、DBマイグレーション | なし + セキュリティレビュー追加 |
+| **M5** | Critical | セキュリティパッチ、本番インシデント | 即座に人間のリードにエスカレート |
+| **MX** | Stop | 要件が不明または高リスク | 停止 — 先にOpen Issuesを解決 |
+
+## 4. 5つの必須ルール
 
 1. **コードの前に計画。** AIは常に計画を先に提示します。編集の前に承認してください。
-2. **`spec-pack.md` が唯一の真実の情報源。** 記載のない要件を追加しないでください。
-   不明点は `open-issues.md` へ — **推測は禁止**。
-3. **ソースコードがドキュメントに勝る。** ドキュメント（Excel/PDF）とソースコードが
-   矛盾する場合は、ソースコードを信頼してください。
-4. **シークレットに触れない。** `.env`、キー、トークン、パスワード、PII を読み取ったり
-   出力したりしないでください。
-5. **最終レビューはあなたが行う。** AIのセルフレビュー後も、あなたが読んで承認してください。
+2. **`spec-pack.md` が唯一の真実の情報源。** 不明点は `open-issues.md` へ。推測禁止。
+3. **ソースコードがドキュメントに勝る。** ドキュメント（Excel/PDF）とソースコードが矛盾する場合、ソースコードを信頼してください。
+4. **シークレットに触れない。** `.env`、キー、トークン、PIIを読み取ったり出力したりしないでください。
+5. **最終的な判断者はあなた。** AIのセルフレビュー後も、あなたが読んで承認してください。
 
-## 4. STOP してエスカレーションするタイミング
+## 5. STOP してエスカレーションするタイミング
 
-- 正しく実装するために必要なソース / DB定義が欠如している
-- シークレットや個人情報が露出している
-- 変更が決済・ログイン/権限・本番DBマイグレーションに影響する
+- 正しく実装するためにソースが不足または読み取り不可
+- シークレットや個人情報が露出
+- 変更が決済・ログイン/権限・本番DBマイグレーションに影響
+- ソースコードと仕様が矛盾している
+- AIが存在しないメソッドやファイルを使おうとしている
 
-## 5. ヒント
+## 6. ヒント
 
 - すべての結果は `docs/changes/<チケットID>/` にあります — いつでも確認できます。
-- 次のステップを忘れた? 各コマンドの終わりに、AIが次に実行するコマンドを教えてくれます。
+- 各コマンドの終わりに、AIが次に実行するコマンドを教えてくれます。
 - 詳細なルール: `.claude/rules/`。プロジェクト標準: `docs/standards/`。

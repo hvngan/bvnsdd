@@ -18,67 +18,124 @@ from .._version import __version__
 
 _NEXT_STEPS: dict[str, str] = {
     "vi": """\
-[bold cyan]Bước 1[/bold cyan]  Mở thư mục dự án trong [bold]Claude Code[/bold].
+[bold]1.[/bold] Mở thư mục dự án trong [bold]Claude Code[/bold].
 
-[bold cyan]Bước 2[/bold cyan]  Chạy 1 lần để AI hiểu codebase:
-          [cyan]/sdd-map[/cyan]
+[bold]2.[/bold] Chạy [bold]1 lần[/bold] để AI hiểu codebase:
+   [dim]Phase 0-B — Common Base / Source Intelligence[/dim]
+   [cyan]/sdd-map[/cyan]
 
-[bold cyan]Bước 3[/bold cyan]  Tạo ticket đầu tiên:
-          [cyan]/sdd-new T-001[/cyan]
+[bold]3.[/bold] Tạo workspace cho ticket:
+   [dim]Bootstrap (trước Phase 1)[/dim]
+   [cyan]/sdd-new T-001[/cyan]
 
-[bold cyan]Bước 4[/bold cyan]  Chạy từng phase theo thứ tự:
-          [cyan]/sdd-spec T-001[/cyan]       →  spec-pack.md
-          [cyan]/sdd-rightsize T-001[/cyan]  →  mode-decision.md  (M1–M5)
-          [cyan]/sdd-context T-001[/cyan]    →  context.md  [dim](bỏ qua nếu M1)[/dim]
-          [cyan]/sdd-plan T-001[/cyan]       →  impl-plan.md  [dim](bỏ qua nếu M1)[/dim]
-          [cyan]/sdd-implement T-001[/cyan]  →  code + self-review.md
-          [cyan]/sdd-test T-001[/cyan]       →  test-plan.md, test-results.md
-          [cyan]/sdd-blackbox T-001[/cyan]   →  blackbox-testcases.md  [dim](bỏ qua nếu M1)[/dim]
-          [cyan]/sdd-report T-001[/cyan]     →  report.md
+[bold]4.[/bold] Chạy từng phase theo thứ tự:
 
-[dim]Mẹo: dùng /sdd-compact T-001 bất cứ lúc nào để lưu trạng thái session[/dim]\
+   [dim]Phase 1  — Investigation / Spec Pack[/dim]
+   [cyan]/sdd-spec T-001[/cyan]         →  spec-pack.md, open-issues.md
+
+   [dim]Phase 1  — Right-sizing (quyết định mode M1–M5/MX)[/dim]
+   [cyan]/sdd-rightsize T-001[/cyan]    →  mode-decision.md
+
+   [dim]Phase 2  — Ticket Context / Rules[/dim]  [yellow](bỏ qua nếu M1)[/yellow]
+   [cyan]/sdd-context T-001[/cyan]      →  context.md, source-map.md
+
+   [dim]Phase 3  — Impact Analysis / Impl Plan[/dim]  [yellow](bỏ qua nếu M1)[/yellow]
+   [cyan]/sdd-plan T-001[/cyan]         →  impact-analysis.md, impl-plan.md
+
+   [dim]Phase 4+5 — Review Checklist + Implementation / AI Review / Human Review[/dim]
+   [cyan]/sdd-implement T-001[/cyan]    →  code + self-review.md
+
+   [dim]Phase 6  — Test Plan / Test Code[/dim]
+   [cyan]/sdd-test T-001[/cyan]         →  test-plan.md, test-results.md
+
+   [dim]Phase 7  — Black-box Test / Test Data[/dim]  [yellow](bỏ qua nếu M1)[/yellow]
+   [cyan]/sdd-blackbox T-001[/cyan]     →  blackbox-testcases.md
+
+   [dim]Phase 8  — Test Results / Final Report[/dim]
+   [cyan]/sdd-report T-001[/cyan]       →  report.md
+
+[dim]Tiện ích (Spec 32 — Long Context / Strategic Compact):
+/sdd-compact T-001  →  strategic-compact.md  — dùng bất cứ lúc nào để lưu trạng thái session[/dim]\
 """,
     "en": """\
-[bold cyan]Step 1[/bold cyan]  Open the project folder in [bold]Claude Code[/bold].
+[bold]1.[/bold] Open the project folder in [bold]Claude Code[/bold].
 
-[bold cyan]Step 2[/bold cyan]  Run once to map the codebase:
-          [cyan]/sdd-map[/cyan]
+[bold]2.[/bold] Run [bold]once[/bold] to map the codebase:
+   [dim]Phase 0-B — Common Base / Source Intelligence[/dim]
+   [cyan]/sdd-map[/cyan]
 
-[bold cyan]Step 3[/bold cyan]  Create your first ticket:
-          [cyan]/sdd-new T-001[/cyan]
+[bold]3.[/bold] Create the ticket workspace:
+   [dim]Bootstrap (before Phase 1)[/dim]
+   [cyan]/sdd-new T-001[/cyan]
 
-[bold cyan]Step 4[/bold cyan]  Drive each phase in order:
-          [cyan]/sdd-spec T-001[/cyan]       →  spec-pack.md
-          [cyan]/sdd-rightsize T-001[/cyan]  →  mode-decision.md  (M1–M5)
-          [cyan]/sdd-context T-001[/cyan]    →  context.md  [dim](skip for M1)[/dim]
-          [cyan]/sdd-plan T-001[/cyan]       →  impl-plan.md  [dim](skip for M1)[/dim]
-          [cyan]/sdd-implement T-001[/cyan]  →  code + self-review.md
-          [cyan]/sdd-test T-001[/cyan]       →  test-plan.md, test-results.md
-          [cyan]/sdd-blackbox T-001[/cyan]   →  blackbox-testcases.md  [dim](skip for M1)[/dim]
-          [cyan]/sdd-report T-001[/cyan]     →  report.md
+[bold]4.[/bold] Drive each phase in order:
 
-[dim]Tip: run /sdd-compact T-001 at any point to snapshot the session state[/dim]\
+   [dim]Phase 1  — Investigation / Spec Pack[/dim]
+   [cyan]/sdd-spec T-001[/cyan]         →  spec-pack.md, open-issues.md
+
+   [dim]Phase 1  — Right-sizing (choose mode M1–M5/MX)[/dim]
+   [cyan]/sdd-rightsize T-001[/cyan]    →  mode-decision.md
+
+   [dim]Phase 2  — Ticket Context / Rules[/dim]  [yellow](skip for M1)[/yellow]
+   [cyan]/sdd-context T-001[/cyan]      →  context.md, source-map.md
+
+   [dim]Phase 3  — Impact Analysis / Impl Plan[/dim]  [yellow](skip for M1)[/yellow]
+   [cyan]/sdd-plan T-001[/cyan]         →  impact-analysis.md, impl-plan.md
+
+   [dim]Phase 4+5 — Review Checklist + Implementation / AI Review / Human Review[/dim]
+   [cyan]/sdd-implement T-001[/cyan]    →  code + self-review.md
+
+   [dim]Phase 6  — Test Plan / Test Code[/dim]
+   [cyan]/sdd-test T-001[/cyan]         →  test-plan.md, test-results.md
+
+   [dim]Phase 7  — Black-box Test / Test Data[/dim]  [yellow](skip for M1)[/yellow]
+   [cyan]/sdd-blackbox T-001[/cyan]     →  blackbox-testcases.md
+
+   [dim]Phase 8  — Test Results / Final Report[/dim]
+   [cyan]/sdd-report T-001[/cyan]       →  report.md
+
+[dim]Utility (Spec 32 — Long Context / Strategic Compact):
+/sdd-compact T-001  →  strategic-compact.md  — snapshot session state at any time[/dim]\
 """,
     "ja": """\
-[bold cyan]ステップ 1[/bold cyan]  プロジェクトフォルダを [bold]Claude Code[/bold] で開きます。
+[bold]1.[/bold] プロジェクトフォルダを [bold]Claude Code[/bold] で開きます。
 
-[bold cyan]ステップ 2[/bold cyan]  コードベースをマップするため1回実行:
-              [cyan]/sdd-map[/cyan]
+[bold]2.[/bold] コードベースをマップするため[bold]1回[/bold]実行:
+   [dim]Phase 0-B — Common Base / Source Intelligence[/dim]
+   [cyan]/sdd-map[/cyan]
 
-[bold cyan]ステップ 3[/bold cyan]  最初のチケットを作成:
-              [cyan]/sdd-new T-001[/cyan]
+[bold]3.[/bold] チケットワークスペースを作成:
+   [dim]Bootstrap（Phase 1の前）[/dim]
+   [cyan]/sdd-new T-001[/cyan]
 
-[bold cyan]ステップ 4[/bold cyan]  各フェーズを順番に実行:
-              [cyan]/sdd-spec T-001[/cyan]       →  spec-pack.md
-              [cyan]/sdd-rightsize T-001[/cyan]  →  mode-decision.md  (M1–M5)
-              [cyan]/sdd-context T-001[/cyan]    →  context.md  [dim](M1はスキップ)[/dim]
-              [cyan]/sdd-plan T-001[/cyan]       →  impl-plan.md  [dim](M1はスキップ)[/dim]
-              [cyan]/sdd-implement T-001[/cyan]  →  コード + self-review.md
-              [cyan]/sdd-test T-001[/cyan]       →  test-plan.md, test-results.md
-              [cyan]/sdd-blackbox T-001[/cyan]   →  blackbox-testcases.md  [dim](M1はスキップ)[/dim]
-              [cyan]/sdd-report T-001[/cyan]     →  report.md
+[bold]4.[/bold] 各フェーズを順番に実行:
 
-[dim]ヒント: /sdd-compact T-001 でいつでもセッション状態をスナップショット保存できます[/dim]\
+   [dim]Phase 1  — Investigation / Spec Pack[/dim]
+   [cyan]/sdd-spec T-001[/cyan]         →  spec-pack.md, open-issues.md
+
+   [dim]Phase 1  — Right-sizing（モード M1–M5/MX を決定）[/dim]
+   [cyan]/sdd-rightsize T-001[/cyan]    →  mode-decision.md
+
+   [dim]Phase 2  — Ticket Context / Rules[/dim]  [yellow]（M1はスキップ）[/yellow]
+   [cyan]/sdd-context T-001[/cyan]      →  context.md, source-map.md
+
+   [dim]Phase 3  — Impact Analysis / Impl Plan[/dim]  [yellow]（M1はスキップ）[/yellow]
+   [cyan]/sdd-plan T-001[/cyan]         →  impact-analysis.md, impl-plan.md
+
+   [dim]Phase 4+5 — Review Checklist + Implementation / AI Review / Human Review[/dim]
+   [cyan]/sdd-implement T-001[/cyan]    →  コード + self-review.md
+
+   [dim]Phase 6  — Test Plan / Test Code[/dim]
+   [cyan]/sdd-test T-001[/cyan]         →  test-plan.md, test-results.md
+
+   [dim]Phase 7  — Black-box Test / Test Data[/dim]  [yellow]（M1はスキップ）[/yellow]
+   [cyan]/sdd-blackbox T-001[/cyan]     →  blackbox-testcases.md
+
+   [dim]Phase 8  — Test Results / Final Report[/dim]
+   [cyan]/sdd-report T-001[/cyan]       →  report.md
+
+[dim]ユーティリティ（Spec 32 — Long Context / Strategic Compact）:
+/sdd-compact T-001  →  strategic-compact.md  — いつでもセッション状態をスナップショット保存[/dim]\
 """,
 }
 
