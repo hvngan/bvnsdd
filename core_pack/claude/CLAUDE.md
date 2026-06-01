@@ -27,10 +27,14 @@ assistant operating under specification, evidence, permissions, review, and test
 Each ticket moves through SDD phases, driven by slash commands. Each command
 produces a real artifact file under `docs/changes/<TICKET>/`:
 
-`/sdd-new` → `/sdd-spec` → `/sdd-context` → `/sdd-plan` →
-`/sdd-implement` → `/sdd-test` → `/sdd-report`
+`/sdd-new` → `/sdd-spec` → `/sdd-rightsize` → `/sdd-context` → `/sdd-plan` →
+`/sdd-implement` → `/sdd-test` → `/sdd-blackbox` → `/sdd-report`
+
+`/sdd-rightsize` formalises the operating mode (M1–M5/MX) and outputs an adapted
+workflow — M1 (Light) skips `/sdd-context`, `/sdd-plan`, and `/sdd-blackbox`.
 
 Run `/sdd-map` once per project before the first ticket.
+Run `/sdd-compact` at any point to snapshot session state for handoff or resume.
 
 ## Reading order at the start of any phase
 

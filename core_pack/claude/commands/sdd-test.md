@@ -25,5 +25,7 @@ Update:
 - Run build/lint/test and record into `test-results.md`: environment, exact
   commands, PASS/FAIL list, bugs fixed vs. outstanding, remaining risks.
 
-Never claim a test passed without running it. When done, tell the user to run
-`/sdd-report $ARGUMENTS`.
+Never claim a test passed without running it. When done, check `mode-decision.md`:
+if mode is M2 or higher, tell the user to run `/sdd-blackbox $ARGUMENTS` before
+the report. If mode is M1 or `blackbox-testcases.md` is explicitly skipped,
+tell the user to run `/sdd-report $ARGUMENTS` directly.

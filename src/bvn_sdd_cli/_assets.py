@@ -18,6 +18,47 @@ import shutil
 from dataclasses import dataclass, field
 from pathlib import Path
 
+# Language directive injected into .claude/rules/00-language.md
+_LANGUAGE_RULES: dict[str, str] = {
+    "en": """\
+# Language Policy
+
+**Active language: English**
+
+All AI responses, artifact content, plan outputs, document fills, generated code
+comments, and any text you produce in this project must be written in **English**.
+This rule applies to every phase command, open-issues entry, and spec section.
+Do not mix languages; if the user writes in another language, still respond in English.
+""",
+    "vi": """\
+# Chính sách Ngôn ngữ
+
+**Ngôn ngữ đang dùng: Tiếng Việt**
+
+Mọi phản hồi AI, nội dung artifact, kết quả plan, điền vào tài liệu, bình luận code
+sinh ra, và bất kỳ văn bản nào bạn tạo trong dự án này đều phải viết bằng **Tiếng Việt**.
+Quy tắc này áp dụng cho mọi lệnh phase, mục open-issues, và phần spec.
+Không trộn ngôn ngữ; nếu người dùng viết bằng ngôn ngữ khác, vẫn phản hồi bằng Tiếng Việt.
+""",
+    "ja": """\
+# 言語ポリシー
+
+**使用言語: 日本語**
+
+このプロジェクトで作成するすべてのAI応答、アーティファクトの内容、プランの出力、
+ドキュメントの記入、生成されたコードのコメント、およびすべてのテキストは
+**日本語**で記述してください。このルールはすべてのフェーズコマンド、
+open-issuesのエントリ、およびspecのセクションに適用されます。
+言語を混在させないでください。ユーザーが別の言語で書いた場合でも、日本語で応答してください。
+""",
+}
+
+SUPPORTED_LANGUAGES: dict[str, str] = {
+    "vi": "Tiếng Việt",
+    "en": "English",
+    "ja": "日本語",
+}
+
 # Maps a directory inside core_pack to its destination name in the project.
 PACK_DIRS = {
     "claude": ".claude",
@@ -85,3 +126,39 @@ def scaffold(target: Path, *, force: bool = False) -> CopyResult:
             continue
         _copy_tree(src, target / dest_name, force=force, result=result)
     return result
+
+
+def set_language(target: Path, lang: str) -> None:
+    """Write the language directive rule and copy the localized QUICKSTART.
+
+    Called after scaffold(). Writes:
+      <target>/.claude/rules/00-language.md  — Claude language directive
+      <target>/docs/QUICKSTART.md            — localized quick-start guide
+      <target>/.bvn-sdd/config.yml           — patches language: <lang>
+    """
+    if lang not in _LANGUAGE_RULES:
+        raise ValueError(f"Unsupported language: {lang!r}. Choose from {list(_LANGUAGE_RULES)}")
+
+    # 1. Write the Claude language rule.
+    rules_dir = target / ".claude" / "rules"
+    rules_dir.mkdir(parents=True, exist_ok=True)
+    (rules_dir / "00-language.md").write_text(_LANGUAGE_RULES[lang], encoding="utf-8")
+
+    # 2. Copy the localized QUICKSTART.
+    core_pack = find_core_pack()
+    qs_src = core_pack / "bvn-sdd" / "i18n" / f"QUICKSTART-{lang}.md"
+    qs_dst = target / "docs" / "QUICKSTART.md"
+    if qs_src.exists():
+        qs_dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(qs_src, qs_dst)
+
+    # 3. Patch language into config.yml.
+    config_path = target / ".bvn-sdd" / "config.yml"
+    if config_path.exists():
+        content = config_path.read_text(encoding="utf-8")
+        if "language:" in content:
+            import re
+            content = re.sub(r"^language:.*$", f"language: {lang}", content, flags=re.MULTILINE)
+        else:
+            content = f"language: {lang}\n" + content
+        config_path.write_text(content, encoding="utf-8")

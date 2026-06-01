@@ -14,10 +14,12 @@ Steps:
 3. Copy each template from `.bvn-sdd/templates/` into that directory as a blank,
    ready-to-fill artifact (keep the same filename), unless it already exists:
    - `spec-pack.md`, `source-availability.md`, `open-issues.md`
+   - `mode-decision.md`
    - `context.md`, `source-map.md`
    - `impact-analysis.md`, `impl-plan.md`
    - `review-checklist.md`, `self-review.md`
-   - `test-plan.md`, `test-results.md`
+   - `test-plan.md`, `test-results.md`, `blackbox-testcases.md`
+   - `strategic-compact.md`
    - `report.md`
    You may instead run the helper script if you prefer:
    `.bvn-sdd/scripts/powershell/create-ticket.ps1 <TICKET>` (Windows) or
@@ -25,4 +27,5 @@ Steps:
 4. In each copied file, replace the `<TICKET>` placeholder with the ticket id.
 
 Do **not** start filling content yet. After creating the files, report the list
-of artifacts created and tell the user to run `/sdd-spec <TICKET>` next.
+of artifacts created and tell the user to run `/sdd-spec <TICKET>` next, then
+`/sdd-rightsize <TICKET>` after that.
