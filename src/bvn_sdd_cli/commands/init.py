@@ -9,65 +9,121 @@ from typing import Optional
 import typer
 
 from .. import _assets
-from .._console import console, error, ok, panel, skip, warn
+from .._console import console, error, info, ok, panel, rule, skip, warn
+from .._version import __version__
+
+# ---------------------------------------------------------------------------
+# Next-steps panel content per language
+# ---------------------------------------------------------------------------
 
 _NEXT_STEPS: dict[str, str] = {
-    "vi": (
-        "Bước tiếp theo:\n\n"
-        "  1. Mở dự án trong [bold]Claude Code[/bold].\n"
-        "  2. (1 lần/dự án) Chạy [cyan]/sdd-map[/cyan] để AI hiểu codebase.\n"
-        "  3. Tạo ticket: [cyan]/sdd-new T-001[/cyan]\n"
-        "  4. Chạy từng phase:\n"
-        "     [cyan]/sdd-spec[/cyan] → [cyan]/sdd-rightsize[/cyan] → [cyan]/sdd-context[/cyan]\n"
-        "     → [cyan]/sdd-plan[/cyan] → [cyan]/sdd-implement[/cyan]\n"
-        "     → [cyan]/sdd-test[/cyan] → [cyan]/sdd-blackbox[/cyan] → [cyan]/sdd-report[/cyan]\n\n"
-        "Kết quả mỗi lệnh nằm trong docs/changes/<TICKET>/\n"
-        "Xem docs/QUICKSTART.md để bắt đầu nhanh."
-    ),
-    "en": (
-        "Next steps:\n\n"
-        "  1. Open this project in [bold]Claude Code[/bold].\n"
-        "  2. (Once per project) run [cyan]/sdd-map[/cyan] to map the codebase.\n"
-        "  3. Start a ticket: [cyan]/sdd-new T-001[/cyan]\n"
-        "  4. Drive each phase:\n"
-        "     [cyan]/sdd-spec[/cyan] → [cyan]/sdd-rightsize[/cyan] → [cyan]/sdd-context[/cyan]\n"
-        "     → [cyan]/sdd-plan[/cyan] → [cyan]/sdd-implement[/cyan]\n"
-        "     → [cyan]/sdd-test[/cyan] → [cyan]/sdd-blackbox[/cyan] → [cyan]/sdd-report[/cyan]\n\n"
-        "Each command fills a real artifact under docs/changes/<TICKET>/\n"
-        "See docs/QUICKSTART.md to get started quickly."
-    ),
-    "ja": (
-        "次のステップ:\n\n"
-        "  1. このプロジェクトを [bold]Claude Code[/bold] で開きます。\n"
-        "  2. (プロジェクトごとに1回) [cyan]/sdd-map[/cyan] でコードベースをマップします。\n"
-        "  3. チケットを開始: [cyan]/sdd-new T-001[/cyan]\n"
-        "  4. 各フェーズを実行:\n"
-        "     [cyan]/sdd-spec[/cyan] → [cyan]/sdd-rightsize[/cyan] → [cyan]/sdd-context[/cyan]\n"
-        "     → [cyan]/sdd-plan[/cyan] → [cyan]/sdd-implement[/cyan]\n"
-        "     → [cyan]/sdd-test[/cyan] → [cyan]/sdd-blackbox[/cyan] → [cyan]/sdd-report[/cyan]\n\n"
-        "各コマンドの結果は docs/changes/<TICKET>/ に保存されます。\n"
-        "docs/QUICKSTART.md をご覧ください。"
-    ),
+    "vi": """\
+[bold cyan]Bước 1[/bold cyan]  Mở thư mục dự án trong [bold]Claude Code[/bold].
+
+[bold cyan]Bước 2[/bold cyan]  Chạy 1 lần để AI hiểu codebase:
+          [cyan]/sdd-map[/cyan]
+
+[bold cyan]Bước 3[/bold cyan]  Tạo ticket đầu tiên:
+          [cyan]/sdd-new T-001[/cyan]
+
+[bold cyan]Bước 4[/bold cyan]  Chạy từng phase theo thứ tự:
+          [cyan]/sdd-spec T-001[/cyan]       →  spec-pack.md
+          [cyan]/sdd-rightsize T-001[/cyan]  →  mode-decision.md  (M1–M5)
+          [cyan]/sdd-context T-001[/cyan]    →  context.md  [dim](bỏ qua nếu M1)[/dim]
+          [cyan]/sdd-plan T-001[/cyan]       →  impl-plan.md  [dim](bỏ qua nếu M1)[/dim]
+          [cyan]/sdd-implement T-001[/cyan]  →  code + self-review.md
+          [cyan]/sdd-test T-001[/cyan]       →  test-plan.md, test-results.md
+          [cyan]/sdd-blackbox T-001[/cyan]   →  blackbox-testcases.md  [dim](bỏ qua nếu M1)[/dim]
+          [cyan]/sdd-report T-001[/cyan]     →  report.md
+
+[dim]Mẹo: dùng /sdd-compact T-001 bất cứ lúc nào để lưu trạng thái session[/dim]\
+""",
+    "en": """\
+[bold cyan]Step 1[/bold cyan]  Open the project folder in [bold]Claude Code[/bold].
+
+[bold cyan]Step 2[/bold cyan]  Run once to map the codebase:
+          [cyan]/sdd-map[/cyan]
+
+[bold cyan]Step 3[/bold cyan]  Create your first ticket:
+          [cyan]/sdd-new T-001[/cyan]
+
+[bold cyan]Step 4[/bold cyan]  Drive each phase in order:
+          [cyan]/sdd-spec T-001[/cyan]       →  spec-pack.md
+          [cyan]/sdd-rightsize T-001[/cyan]  →  mode-decision.md  (M1–M5)
+          [cyan]/sdd-context T-001[/cyan]    →  context.md  [dim](skip for M1)[/dim]
+          [cyan]/sdd-plan T-001[/cyan]       →  impl-plan.md  [dim](skip for M1)[/dim]
+          [cyan]/sdd-implement T-001[/cyan]  →  code + self-review.md
+          [cyan]/sdd-test T-001[/cyan]       →  test-plan.md, test-results.md
+          [cyan]/sdd-blackbox T-001[/cyan]   →  blackbox-testcases.md  [dim](skip for M1)[/dim]
+          [cyan]/sdd-report T-001[/cyan]     →  report.md
+
+[dim]Tip: run /sdd-compact T-001 at any point to snapshot the session state[/dim]\
+""",
+    "ja": """\
+[bold cyan]ステップ 1[/bold cyan]  プロジェクトフォルダを [bold]Claude Code[/bold] で開きます。
+
+[bold cyan]ステップ 2[/bold cyan]  コードベースをマップするため1回実行:
+              [cyan]/sdd-map[/cyan]
+
+[bold cyan]ステップ 3[/bold cyan]  最初のチケットを作成:
+              [cyan]/sdd-new T-001[/cyan]
+
+[bold cyan]ステップ 4[/bold cyan]  各フェーズを順番に実行:
+              [cyan]/sdd-spec T-001[/cyan]       →  spec-pack.md
+              [cyan]/sdd-rightsize T-001[/cyan]  →  mode-decision.md  (M1–M5)
+              [cyan]/sdd-context T-001[/cyan]    →  context.md  [dim](M1はスキップ)[/dim]
+              [cyan]/sdd-plan T-001[/cyan]       →  impl-plan.md  [dim](M1はスキップ)[/dim]
+              [cyan]/sdd-implement T-001[/cyan]  →  コード + self-review.md
+              [cyan]/sdd-test T-001[/cyan]       →  test-plan.md, test-results.md
+              [cyan]/sdd-blackbox T-001[/cyan]   →  blackbox-testcases.md  [dim](M1はスキップ)[/dim]
+              [cyan]/sdd-report T-001[/cyan]     →  report.md
+
+[dim]ヒント: /sdd-compact T-001 でいつでもセッション状態をスナップショット保存できます[/dim]\
+""",
+}
+
+_PANEL_TITLES: dict[str, str] = {
+    "vi": "BVN-SDD — Dự án đã sẵn sàng",
+    "en": "BVN-SDD — Project ready",
+    "ja": "BVN-SDD — プロジェクト準備完了",
+}
+
+_LANG_PROMPT_LABELS: dict[str, str] = {
+    "vi": "Ngôn ngữ / Language / 言語",
+    "en": "Language / Ngôn ngữ / 言語",
+    "ja": "言語 / Language / Ngôn ngữ",
 }
 
 
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
+
+
 def _prompt_language() -> str:
-    """Interactive language selector. Returns 'vi', 'en', or 'ja'."""
-    console.print("\n[bold]Select language / 言語を選択 / Chọn ngôn ngữ:[/bold]")
-    console.print("  [cyan]1[/cyan]  Tiếng Việt")
-    console.print("  [cyan]2[/cyan]  English")
-    console.print("  [cyan]3[/cyan]  日本語")
+    """Interactive language selector printed in a styled panel. Returns 'vi', 'en', or 'ja'."""
+    console.print()
+    console.print(
+        "[bold]Select language[/bold]  [dim]/ 言語を選択 / Chọn ngôn ngữ[/dim]"
+    )
+    console.print()
+    console.print("    [cyan bold]1[/cyan bold]   Tiếng Việt  [dim](mặc định)[/dim]")
+    console.print("    [cyan bold]2[/cyan bold]   English")
+    console.print("    [cyan bold]3[/cyan bold]   日本語")
+    console.print()
+
     choices = {"1": "vi", "vi": "vi", "2": "en", "en": "en", "3": "ja", "ja": "ja"}
     while True:
-        raw = typer.prompt("Choice [1/2/3]", default="1")
+        raw = typer.prompt("  Choice [1/2/3]", default="1")
         lang = choices.get(raw.strip().lower())
         if lang:
+            console.print()
             return lang
-        console.print("[red]Please enter 1, 2, or 3.[/red]")
+        error("Please enter 1, 2, or 3.")
 
 
 def _git_init(target: Path) -> bool:
-    """Run `git init` in `target` if it is not already a repo. Returns success."""
+    """Run `git init` in `target` if it is not already a repo. Returns True if initialized."""
     if (target / ".git").exists():
         return False
     try:
@@ -81,6 +137,11 @@ def _git_init(target: Path) -> bool:
     except (subprocess.CalledProcessError, FileNotFoundError):
         warn("git not available — skipped repository initialization.")
         return False
+
+
+# ---------------------------------------------------------------------------
+# Command
+# ---------------------------------------------------------------------------
 
 
 def init(
@@ -105,6 +166,18 @@ def init(
     ),
 ) -> None:
     """Scaffold .claude/, .bvn-sdd/ and docs/ into a project."""
+
+    from .._console import FULL_NAME, BANNER
+    from rich.text import Text
+
+    # Header
+    console.print()
+    console.print(Text(BANNER, style="bold cyan"))
+    console.print(Text(f"  {FULL_NAME}", style="dim"))
+    console.print(Text(f"  v{__version__}", style="bold"))
+    console.print()
+
+    # Validate arguments
     if here and project_name:
         error("Pass either a project name or --here, not both.")
         raise typer.Exit(code=1)
@@ -112,28 +185,40 @@ def init(
         error("Provide a project name, or use --here for the current directory.")
         raise typer.Exit(code=1)
 
-    # Resolve language before any file I/O.
+    # Resolve language
     if lang is not None:
         lang = lang.strip().lower()
         if lang not in _assets.SUPPORTED_LANGUAGES:
-            error(f"Unsupported language {lang!r}. Choose: vi | en | ja")
+            error(
+                f"Unsupported language [bold]{lang!r}[/bold]. "
+                "Choose: [cyan]vi[/cyan] | [cyan]en[/cyan] | [cyan]ja[/cyan]"
+            )
             raise typer.Exit(code=1)
     else:
         lang = _prompt_language()
 
+    lang_label = _assets.SUPPORTED_LANGUAGES[lang]
+
+    # Resolve target directory
     if here:
         target = Path.cwd()
+        where = target.name
     else:
         target = Path.cwd() / project_name  # type: ignore[arg-type]
         target.mkdir(parents=True, exist_ok=True)
+        where = project_name
 
-    # Refuse to re-scaffold an existing BVN-SDD project unless forced.
+    # Guard against re-scaffolding
     if (target / ".bvn-sdd").exists() and not force:
         error(
-            f"{target / '.bvn-sdd'} already exists. "
-            "Use --force to overwrite, or pick a fresh directory."
+            f"[bold]{target / '.bvn-sdd'}[/bold] already exists. "
+            "Use [cyan]--force[/cyan] to overwrite."
         )
         raise typer.Exit(code=1)
+
+    # Scaffold files
+    rule(f"Scaffolding → {where}  [{lang_label}]")
+    console.print()
 
     try:
         result = _assets.scaffold(target, force=force)
@@ -141,21 +226,37 @@ def init(
         error(str(exc))
         raise typer.Exit(code=1) from exc
 
+    created_count = len(result.created)
+    skipped_count = len(result.skipped)
+
     for path in result.created:
-        ok(f"created {path.as_posix()}")
+        ok(path.as_posix())
     for path in result.skipped:
-        skip(f"skipped (exists) {path.as_posix()}")
+        skip(f"already exists — skipped  {path.as_posix()}")
 
+    console.print()
+    info(
+        f"[green]{created_count}[/green] file(s) created"
+        + (f",  [yellow]{skipped_count}[/yellow] skipped" if skipped_count else "")
+    )
+
+    # Apply language
     _assets.set_language(target, lang)
-    lang_label = _assets.SUPPORTED_LANGUAGES[lang]
-    ok(f"language set to {lang_label} ({lang})")
+    ok(f"Language set to [bold]{lang_label}[/bold]  →  .claude/rules/00-language.md")
 
+    # Git
     if not no_git:
         if _git_init(target):
-            ok("initialized git repository")
+            ok("Git repository initialized")
+        else:
+            info("Git repository already exists — skipped")
 
-    where = "current directory" if here else target.name
+    # Summary + next steps
+    console.print()
+    rule()
+    console.print()
     panel(
         _NEXT_STEPS[lang],
-        title=f"BVN-SDD ready in {where} [{lang_label}]",
+        title=f"{_PANEL_TITLES[lang]}  ·  {where}  ·  {lang_label}",
     )
+    console.print()
