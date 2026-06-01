@@ -4,11 +4,11 @@ from __future__ import annotations
 
 from rich.console import Console
 from rich.panel import Panel
+from rich.rule import Rule
 from rich.text import Text
 
 console = Console()
 
-# BVN-SDD brand accent used across the CLI.
 ACCENT = "bold cyan"
 
 BANNER = r"""
@@ -17,38 +17,44 @@ BANNER = r"""
 |  _ \| | | |  \| |_____\___ \| | | | | | |
 | |_) | |_| | |\  |_____|___) | |_| | |_| |
 |____/ \___/|_| \_|     |____/|____/|____/
-""".strip(
-    "\n"
-)
+""".strip("\n")
+
+FULL_NAME = "Brycen Viet Nam — Spec-Driven Development for Claude Code"
 
 
 def print_banner(version: str) -> None:
-    """Print the BVN-SDD banner with the current version."""
-    text = Text(BANNER, style=ACCENT)
-    subtitle = Text(
-        f"Spec-Driven Development CLI for Claude Code - v{version}",
-        style="dim",
-    )
-    console.print(text)
-    console.print(subtitle)
+    """Print the BVN-SDD banner with version."""
+    console.print()
+    console.print(Text(BANNER, style=ACCENT))
+    console.print(Text(f"  {FULL_NAME}", style="dim"))
+    console.print(Text(f"  v{version}", style="bold"))
+    console.print()
 
 
-# ASCII-only markers so output renders on legacy Windows consoles (cp1252).
+def rule(title: str = "") -> None:
+    """Print a horizontal divider, optionally with a section title."""
+    console.print(Rule(title, style="dim cyan"))
+
+
 def ok(message: str) -> None:
-    console.print(f"[green]+[/green] {message}")
+    console.print(f"  [green]✓[/green]  {message}")
 
 
 def skip(message: str) -> None:
-    console.print(f"[yellow]-[/yellow] {message}")
+    console.print(f"  [yellow]–[/yellow]  [dim]{message}[/dim]")
 
 
 def warn(message: str) -> None:
-    console.print(f"[yellow]![/yellow] {message}")
+    console.print(f"  [yellow]![/yellow]  {message}")
 
 
 def error(message: str) -> None:
-    console.print(f"[red]x[/red] {message}")
+    console.print(f"  [red]✗[/red]  {message}")
+
+
+def info(message: str) -> None:
+    console.print(f"  [cyan]·[/cyan]  {message}")
 
 
 def panel(body: str, title: str) -> None:
-    console.print(Panel(body, title=title, border_style="cyan", expand=False))
+    console.print(Panel(body, title=title, border_style="cyan", expand=False, padding=(1, 2)))

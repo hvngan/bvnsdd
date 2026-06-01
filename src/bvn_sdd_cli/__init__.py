@@ -48,7 +48,7 @@ app.command("check", help="Check that git and Claude Code are available.")(
 )
 
 
-@app.command("version", help="Show the BVN-SDD CLI version.")
+@app.command("version", help="Show the BVN-SDD CLI version and full name.")
 def version() -> None:
     print_banner(__version__)
 
