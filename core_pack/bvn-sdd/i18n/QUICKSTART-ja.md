@@ -14,22 +14,24 @@ bvn-sdd init my-project    # プロジェクトを作成（または: bvn-sdd in
 
 言語を選択してください: 1=Tiếng Việt / 2=English / 3=日本語
 
-次に **Claude Code でプロジェクトを開きます**。
+次に **Claude Code でプロジェクトを開き**、すぐに `/sdd-phase0a` を実行します。
 
 ## 2. SDD-Installation Pack V04.2 のフェーズ
 
 | フェーズ（V04.2） | Claude Code コマンド | 生成されるもの | あなたが行うこと |
 |---|---|---|---|
-| **Phase 0-B** Common Base / Source Intelligence | `/sdd-map` | `docs/architecture/` — ソースマップ、ルート、API、DBスキーマ | **プロジェクトごとに1回。** 最初のチケット前に実行 |
+| **Phase 0-A** Safety Gate | `/sdd-phase0a` | `docs/maintenance/phase0/` + `docs/standards/automation/` — 安全証跡、コンテキストポリシー | **プロジェクトごとに1回。** `bvn-sdd init` 直後、`/sdd-map` 前に実行 |
+| **Phase 0-B** Common Base / Source Intelligence | `/sdd-map` | `docs/architecture/` — ソースマップ、ルート、API、DBスキーマ、FE/BEコントラクト、テストカバレッジ | **プロジェクトごとに1回。** 最初のチケット前に実行 |
 | **Bootstrap**（Phase 1の前） | `/sdd-new T-001` | `docs/changes/T-001/` + すべての空のアーティファクトファイル | チケットIDを設定 |
 | **Phase 1** Investigation / Spec Pack | `/sdd-spec T-001` | `spec-pack.md`、`source-availability.md`、`open-issues.md` | ACが正しいか確認；Open Issuesに回答 |
 | **Phase 1** Right-sizing | `/sdd-rightsize T-001` | `mode-decision.md` — モード M1–M5/MX + 適応ワークフロー | **重要:** 続行前にモードを確認 |
-| **Phase 2** Ticket Context / Rules | `/sdd-context T-001` | `context.md`、`source-map.md` | パターン、実在するメソッド、禁止パターンを確認 *（M1はスキップ）* |
+| **Phase 2** Ticket Context / Rules | `/sdd-context T-001` | `context.md`、`source-map.md`、`ticket-rules.md` | パターン、実在するメソッド、禁止パターンを確認 *（M1はスキップ）* |
 | **Phase 3** Impact Analysis / Impl Plan | `/sdd-plan T-001` | `impact-analysis.md`、`impl-plan.md` | FE/BE/DBの影響範囲と計画をレビュー *（M1はスキップ）* |
-| **Phase 4+5** Review Checklist + Implementation / AI Review / Human Review | `/sdd-implement T-001` | コード + `review-checklist.md`、`self-review.md` | AIが書いたコードを読む；セルフレビューを確認；承認 |
+| **Phase 4+5** Review Checklist + Implementation / AI Review / Human Review | `/sdd-implement T-001` | コード + `review-checklist.md`、`self-review.md` | AIが書いたコードを読む；セルフレビューを確認；**`human-review.md` を記入**して承認 |
 | **Phase 6** Test Plan / Test Code | `/sdd-test T-001` | `test-plan.md`、`test-results.md` | テストが実際にPASSするか確認；結果を読む |
-| **Phase 7** Black-box Test / Test Data | `/sdd-blackbox T-001` | `blackbox-testcases.md` | ユーザー/QAの視点から動作を検証 *（M1はスキップ）* |
+| **Phase 7** Black-box Test / Test Data | `/sdd-blackbox T-001` | `blackbox-testcases.md`、`test-data.md`、`blackbox-review-checklist.md` | ユーザー/QAの視点から動作を検証 *（M1はスキップ）* |
 | **Phase 8** Test Results / Final Report | `/sdd-report T-001` | `report.md` | 最終レポートを読む；accepted riskとフォローアップを確認 |
+| **Phase 9** Living Docs / Failure Mode Update | `/sdd-learnings T-001` | `promotion-candidates.md` + `docs/maintenance/failure-mode-index.md` 更新 | プロモーション候補をレビュー；プロジェクト標準への追加を承認 |
 
 **ユーティリティ**（Spec 32 — Long Context / Strategic Compact）:
 - `/sdd-compact T-001` → `strategic-compact.md` — セッションスナップショット。新しいセッションの冒頭に貼り付けて、すべてを再読せずに再開できます。
@@ -66,3 +68,14 @@ bvn-sdd init my-project    # プロジェクトを作成（または: bvn-sdd in
 - すべての結果は `docs/changes/<チケットID>/` にあります — いつでも確認できます。
 - 各コマンドの終わりに、AIが次に実行するコマンドを教えてくれます。
 - 詳細なルール: `.claude/rules/`。プロジェクト標準: `docs/standards/`。
+
+## 7. ウォークスルー例
+
+BVN-SDDを使って新しいiOS天気アプリをゼロから構築する完全なステップバイステップのウォークスルーは **[EXAMPLE-ios-weather-ja.md](EXAMPLE-ios-weather-ja.md)** を参照してください。
+
+各フェーズで以下を示します:
+- 実行する正確なコマンド
+- AIが生成する重要なアーティファクトの内容（リアルな抜粋）
+- 次のフェーズに進む前に行う判断または承認
+
+グリーンフィールドの完全なパスをカバー: Phase 0-A → Phase 0-B → T-001ブートストラップ → Spec → Rightsize → Context → Plan → Implement → Test → Black-box → Report → Learnings。
