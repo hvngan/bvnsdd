@@ -34,6 +34,16 @@ Then inspect the project itself (shallow scan — do NOT read every file):
 - Check `.claude/settings.json` for any hooks or MCP server entries
 - Check for external documents: `*.xlsx`, `*.docx`, `*.pdf` in root and `docs/`
 
+**Detect project type** (record in `phase0-plan.md` under "Project Type"):
+- Use Glob to check for source files outside BVN-SDD scaffolding:
+  common patterns include `src/**`, `lib/**`, `app/**`, `*.py`, `*.ts`, `*.js`,
+  `*.go`, `*.java`, `*.cs`, `*.rb` — exclude `.bvn-sdd/`, `.claude/`, `docs/`,
+  `node_modules/`, `.git/`
+- **existing** — source files found; this is an established codebase
+- **new** — no source files found; this is a green-field project
+- If `project_type = new`, add a note: "`/sdd-map` will run in green-field mode
+  (architecture decisions, not source survey)"
+
 ---
 
 ## Step 2 — Identify project-specific risks

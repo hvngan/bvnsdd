@@ -68,3 +68,14 @@ bvn-sdd init my-project    # プロジェクトを作成（または: bvn-sdd in
 - すべての結果は `docs/changes/<チケットID>/` にあります — いつでも確認できます。
 - 各コマンドの終わりに、AIが次に実行するコマンドを教えてくれます。
 - 詳細なルール: `.claude/rules/`。プロジェクト標準: `docs/standards/`。
+
+## 7. ウォークスルー例
+
+BVN-SDDを使って新しいiOS天気アプリをゼロから構築する完全なステップバイステップのウォークスルーは **[EXAMPLE-ios-weather-ja.md](EXAMPLE-ios-weather-ja.md)** を参照してください。
+
+各フェーズで以下を示します:
+- 実行する正確なコマンド
+- AIが生成する重要なアーティファクトの内容（リアルな抜粋）
+- 次のフェーズに進む前に行う判断または承認
+
+グリーンフィールドの完全なパスをカバー: Phase 0-A → Phase 0-B → T-001ブートストラップ → Spec → Rightsize → Context → Plan → Implement → Test → Black-box → Report → Learnings。

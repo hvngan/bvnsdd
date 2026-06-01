@@ -13,6 +13,21 @@ and `open-issues.md`, `docs/architecture/*`, `docs/standards/*`.
 **Plan first** (goal, files to read, files to update, Stop/Ask points, plan).
 Do not edit until acknowledged.
 
+---
+
+## Detect project mode before proceeding
+
+Check `docs/maintenance/phase0/phase0-plan.md` for `Project Type`. If absent,
+check whether the files in this ticket's implementation scope already exist
+in the repository.
+
+- Source files exist → **EXISTING PROJECT MODE** (default)
+- No source files → **NEW PROJECT MODE**
+
+---
+
+## EXISTING PROJECT MODE (default)
+
 Goal: make sure the implementation phase does not use non-existent APIs or
 forbidden patterns.
 
@@ -29,5 +44,29 @@ Update:
   a single line noting that and leave the table rows empty.
 
 Verify claims against the real source (use Grep/Glob/Read). Mark anything
-uncertain in `open-issues.md`. When done, tell the user to run `/sdd-plan
-$ARGUMENTS` next.
+uncertain in `open-issues.md`.
+
+---
+
+## NEW PROJECT MODE (no existing implementation for this scope)
+
+Goal: establish the conventions and planned APIs that the implementation phase
+will build toward — rather than verifying what already exists.
+
+Update:
+- `context.md` — planned APIs, interfaces, and patterns to establish; conventions
+  to adopt (naming, error handling, logging); technology-specific rules from the
+  chosen stack. **Mark every entry `[PLANNED]`.** Do NOT run Grep/Glob to verify
+  things that do not exist yet.
+- `source-map.md` — files to **CREATE** in this ticket (not read), with a
+  one-line purpose each. Include the directory structure.
+- `ticket-rules.md` — project-wide conventions being established by this ticket
+  (format rules, encoding, logging, forbidden patterns). These should be promoted
+  to `.claude/rules/` via `/sdd-learnings` once confirmed.
+
+Mark anything uncertain (technology choices, API shapes, naming) in `open-issues.md`
+so the human can decide before implementation begins.
+
+---
+
+When done, tell the user to run `/sdd-plan $ARGUMENTS` next.

@@ -16,7 +16,21 @@ Chọn ngôn ngữ khi được hỏi: 1=Tiếng Việt / 2=English / 3=日本�
 
 Sau đó **mở dự án trong Claude Code** và chạy `/sdd-phase0a` ngay lập tức.
 
-## 2. Phase theo SDD-Installation Pack V04.2
+## 2. Bạn đang ở kịch bản nào?
+
+| Bước | Codebase có sẵn | Repo trống / dự án mới |
+|---|---|---|
+| Cài đặt | `bvn-sdd init --here` vào repo hiện có | `git clone <empty-repo>`, rồi `bvn-sdd init --here` |
+| Phase 0-A | Audit config + nhận diện tech stack; ghi `project_type = existing` | Audit config; phát hiện không có source; ghi `project_type = new` |
+| Phase 0-B | **Survey mode** — đọc source, tạo `system-map.md`, `source-inventory.md`, route/DB map | **Green-field mode** — tạo `system-map.md` là tài liệu quyết định kiến trúc; tất cả đánh dấu `[PLANNED]`; chưa có source-inventory hay test-map |
+| Phase 2 (`/sdd-context`) | Xác minh API/pattern tồn tại trong source | Thiết kế API/pattern dự kiến; đánh dấu `[PLANNED]`; `source-map.md` liệt kê file cần **tạo** |
+| Phase 3–9 | Lên kế hoạch và implement dựa trên code hiện có | Lên kế hoạch và implement code mới từ đầu |
+| Sau các ticket đầu | Chạy lại `/sdd-map` nếu cần cập nhật | **Chạy lại `/sdd-map`** để thay `[PLANNED]` bằng source map thực tế |
+
+Cả hai kịch bản dùng cùng tập lệnh — command tự phát hiện chế độ từ `phase0-plan.md`
+(được thiết lập bởi `/sdd-phase0a`).
+
+## 3. Phase theo SDD-Installation Pack V04.2
 
 | Phase (V04.2) | Lệnh Claude Code | Tạo ra gì | Bạn làm gì |
 |---|---|---|---|
@@ -36,7 +50,7 @@ Sau đó **mở dự án trong Claude Code** và chạy `/sdd-phase0a` ngay lậ
 **Lệnh tiện ích** (Spec 32 — Long Context / Strategic Compact):
 - `/sdd-compact T-001` → `strategic-compact.md` — snapshot trạng thái session. Dán vào đầu session mới để tiếp tục mà không cần đọc lại tất cả.
 
-## 3. Chế độ (do `/sdd-rightsize` quyết định)
+## 4. Chế độ (do `/sdd-rightsize` quyết định)
 
 | Chế độ | Tên | Khi nào dùng | Lệnh bỏ qua |
 |---|---|---|---|
@@ -47,7 +61,7 @@ Sau đó **mở dự án trong Claude Code** và chạy `/sdd-phase0a` ngay lậ
 | **M5** | Critical | Vá lỗi bảo mật, sự cố production | Escalate ngay cho người phụ trách |
 | **MX** | Stop | Yêu cầu chưa rõ hoặc rủi ro quá cao | Dừng, giải quyết open issues trước |
 
-## 4. 5 nguyên tắc bắt buộc
+## 5. 5 nguyên tắc bắt buộc
 
 1. **Plan trước, code sau.** AI luôn trình kế hoạch trước; bạn duyệt rồi mới cho làm.
 2. **`spec-pack.md` là nguồn đúng duy nhất.** Điều chưa rõ → `open-issues.md`. Đừng đoán.
@@ -55,7 +69,7 @@ Sau đó **mở dự án trong Claude Code** và chạy `/sdd-phase0a` ngay lậ
 4. **Không đụng secret.** Không đọc/in `.env`, key, token, PII.
 5. **Người phán định cuối cùng là bạn.** AI self-review xong, bạn vẫn phải đọc và approve.
 
-## 5. Khi nào DỪNG và báo người phụ trách
+## 6. Khi nào DỪNG và báo người phụ trách
 
 - Source thiếu hoặc không đọc được để implement đúng
 - Lộ secret hoặc dữ liệu cá nhân
@@ -63,8 +77,19 @@ Sau đó **mở dự án trong Claude Code** và chạy `/sdd-phase0a` ngay lậ
 - Source và specification mâu thuẫn nhau
 - AI định dùng method hoặc file không tồn tại
 
-## 6. Mẹo
+## 7. Mẹo
 
 - Mọi kết quả trong `docs/changes/<MÃ-TICKET>/` — mở xem bất cứ lúc nào.
 - Cuối mỗi lệnh AI nhắc bạn lệnh tiếp theo cần chạy.
 - Quy tắc chi tiết: `.claude/rules/`. Chuẩn dự án: `docs/standards/`.
+
+## 8. Ví dụ Walkthrough
+
+Xem **[EXAMPLE-ios-weather-vi.md](EXAMPLE-ios-weather-vi.md)** để có walkthrough đầy đủ, từng bước về việc xây dựng ứng dụng thời tiết iOS mới từ đầu bằng BVN-SDD.
+
+Mỗi phase đều hiển thị:
+- Lệnh chính xác bạn chạy
+- Nội dung artifact quan trọng AI tạo ra (trích đoạn thực tế)
+- Quyết định hoặc xác nhận bạn cần đưa ra trước khi sang phase tiếp theo
+
+Bao gồm toàn bộ luồng greenfield: Phase 0-A → Phase 0-B → Bootstrap T-001 → Spec → Rightsize → Context → Plan → Implement → Test → Black-box → Report → Learnings.

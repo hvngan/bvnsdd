@@ -16,7 +16,21 @@ Choose a language when prompted: 1=Tiếng Việt / 2=English / 3=日本語
 
 Then **open the project in Claude Code** and run `/sdd-phase0a` immediately.
 
-## 2. Phases from SDD-Installation Pack V04.2
+## 2. Which path are you on?
+
+| Step | Existing codebase | Empty / new repo |
+|---|---|---|
+| Install | `bvn-sdd init --here` in your existing repo | `git clone <empty-repo>`, then `bvn-sdd init --here` |
+| Phase 0-A | Audits config + detects tech stack; records `project_type = existing` | Audits config; detects no source; records `project_type = new` |
+| Phase 0-B | **Survey mode** — reads source, produces `system-map.md`, `source-inventory.md`, route/DB maps | **Green-field mode** — produces `system-map.md` as architecture decisions; all entries marked `[PLANNED]`; no source-inventory or test-map yet |
+| Phase 2 (`/sdd-context`) | Verifies APIs/patterns exist in source | Designs planned APIs/patterns; marks all `[PLANNED]`; `source-map.md` lists files to **create** |
+| Phase 3–9 | Plan and implement against existing code | Plan and implement code to be written from scratch |
+| After first tickets | Rerun `/sdd-map` to update maps if needed | **Rerun `/sdd-map`** to replace `[PLANNED]` entries with confirmed source maps |
+
+Both paths use the same commands — the commands detect the mode automatically from
+`phase0-plan.md` (set by `/sdd-phase0a`).
+
+## 3. Phases from SDD-Installation Pack V04.2
 
 | Phase (V04.2) | Claude Code command | Produces | You do |
 |---|---|---|---|
@@ -36,7 +50,7 @@ Then **open the project in Claude Code** and run `/sdd-phase0a` immediately.
 **Utility** (Spec 32 — Long Context / Strategic Compact):
 - `/sdd-compact T-001` → `strategic-compact.md` — session snapshot. Paste at the start of a new session to resume without re-reading everything.
 
-## 3. Modes (decided by `/sdd-rightsize`)
+## 4. Modes (decided by `/sdd-rightsize`)
 
 | Mode | Name | When | Commands skipped |
 |---|---|---|---|
@@ -47,7 +61,7 @@ Then **open the project in Claude Code** and run `/sdd-phase0a` immediately.
 | **M5** | Critical | Security patch, production incident | Escalate to human lead immediately |
 | **MX** | Stop | Requirements unclear or risk too high | Halt — resolve open issues first |
 
-## 4. Five non-negotiable rules
+## 5. Five non-negotiable rules
 
 1. **Plan before code.** AI always presents a plan first; you approve before any edits happen.
 2. **`spec-pack.md` is the single source of truth.** Unknowns go to `open-issues.md`. Never guess.
@@ -55,7 +69,7 @@ Then **open the project in Claude Code** and run `/sdd-phase0a` immediately.
 4. **Never touch secrets.** Do not read or emit `.env`, keys, tokens, or PII.
 5. **You are the final decision maker.** After AI self-reviews, you still read and approve.
 
-## 5. When to STOP and escalate
+## 6. When to STOP and escalate
 
 - Source is missing or unreadable — cannot implement correctly
 - Secrets or personal data are exposed
@@ -63,8 +77,19 @@ Then **open the project in Claude Code** and run `/sdd-phase0a` immediately.
 - Source code and specification contradict each other
 - AI is about to use a method or file that does not exist
 
-## 6. Tips
+## 7. Tips
 
 - All results live in `docs/changes/<TICKET-ID>/` — open them any time.
 - At the end of each command, AI tells you what to run next.
 - Detailed rules: `.claude/rules/`. Project standards: `docs/standards/`.
+
+## 8. Walkthrough Example
+
+See **[EXAMPLE-ios-weather-en.md](EXAMPLE-ios-weather-en.md)** for a complete, step-by-step walkthrough of building a new iOS weather app from scratch using BVN-SDD.
+
+It shows, for every phase:
+- The exact command you run
+- The key artifact content the AI produces (realistic excerpts)
+- The decision or approval you make before the next phase
+
+Covers the full greenfield path: Phase 0-A → Phase 0-B → T-001 Bootstrap → Spec → Rightsize → Context → Plan → Implement → Test → Black-box → Report → Learnings.
