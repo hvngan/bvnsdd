@@ -23,6 +23,10 @@ Update:
   multi-language notes.
 - `source-map.md` — the specific files this ticket will read and touch, with a
   one-line purpose each.
+- `ticket-rules.md` — rules specific to this ticket only (not already in
+  `.claude/rules/*`): number/format rules, encoding, logging requirements,
+  forbidden patterns unique to this ticket's scope. If nothing is unique, write
+  a single line noting that and leave the table rows empty.
 
 Verify claims against the real source (use Grep/Glob/Read). Mark anything
 uncertain in `open-issues.md`. When done, tell the user to run `/sdd-plan

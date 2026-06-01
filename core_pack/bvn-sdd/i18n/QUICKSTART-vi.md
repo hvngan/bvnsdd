@@ -14,22 +14,24 @@ bvn-sdd init du-an       # tạo khung dự án (hoặc: bvn-sdd init --here)
 
 Chọn ngôn ngữ khi được hỏi: 1=Tiếng Việt / 2=English / 3=日本語
 
-Sau đó **mở dự án trong Claude Code**.
+Sau đó **mở dự án trong Claude Code** và chạy `/sdd-phase0a` ngay lập tức.
 
 ## 2. Phase theo SDD-Installation Pack V04.2
 
 | Phase (V04.2) | Lệnh Claude Code | Tạo ra gì | Bạn làm gì |
 |---|---|---|---|
-| **Phase 0-B** Common Base / Source Intelligence | `/sdd-map` | `docs/architecture/` — bản đồ source, route, API, DB | **1 lần/dự án.** Chạy trước ticket đầu tiên |
+| **Phase 0-A** Safety Gate | `/sdd-phase0a` | `docs/maintenance/phase0/` + `docs/standards/automation/` — bằng chứng an toàn, chính sách context | **1 lần/dự án.** Chạy ngay sau `bvn-sdd init`, trước `/sdd-map` |
+| **Phase 0-B** Common Base / Source Intelligence | `/sdd-map` | `docs/architecture/` — bản đồ source, route, API, DB, FE/BE contract, test coverage | **1 lần/dự án.** Chạy trước ticket đầu tiên |
 | **Bootstrap** (trước Phase 1) | `/sdd-new T-001` | `docs/changes/T-001/` + tất cả file trống | Đặt mã ticket |
 | **Phase 1** Investigation / Spec Pack | `/sdd-spec T-001` | `spec-pack.md`, `source-availability.md`, `open-issues.md` | Kiểm tra AC đúng chưa; trả lời Open Issues |
 | **Phase 1** Right-sizing | `/sdd-rightsize T-001` | `mode-decision.md` — chế độ M1–M5/MX + workflow được điều chỉnh | **Quan trọng:** xác nhận chế độ trước khi tiếp tục |
-| **Phase 2** Ticket Context / Rules | `/sdd-context T-001` | `context.md`, `source-map.md` | Xác nhận pattern, method thực tồn tại, điều cấm _(bỏ qua nếu M1)_ |
+| **Phase 2** Ticket Context / Rules | `/sdd-context T-001` | `context.md`, `source-map.md`, `ticket-rules.md` | Xác nhận pattern, method thực tồn tại, điều cấm _(bỏ qua nếu M1)_ |
 | **Phase 3** Impact Analysis / Impl Plan | `/sdd-plan T-001` | `impact-analysis.md`, `impl-plan.md` | Duyệt phạm vi ảnh hưởng FE/BE/DB và kế hoạch _(bỏ qua nếu M1)_ |
-| **Phase 4+5** Review Checklist + Implementation / AI Review / Human Review | `/sdd-implement T-001` | code + `review-checklist.md`, `self-review.md` | Đọc code AI viết; kiểm tra self-review; duyệt |
+| **Phase 4+5** Review Checklist + Implementation / AI Review / Human Review | `/sdd-implement T-001` | code + `review-checklist.md`, `self-review.md` | Đọc code AI viết; kiểm tra self-review; **điền `human-review.md`** rồi duyệt |
 | **Phase 6** Test Plan / Test Code | `/sdd-test T-001` | `test-plan.md`, `test-results.md` | Xem test có PASS thật không; đọc kết quả |
-| **Phase 7** Black-box Test / Test Data | `/sdd-blackbox T-001` | `blackbox-testcases.md` | Xác minh hành vi từ góc nhìn user/QA _(bỏ qua nếu M1)_ |
+| **Phase 7** Black-box Test / Test Data | `/sdd-blackbox T-001` | `blackbox-testcases.md`, `test-data.md`, `blackbox-review-checklist.md` | Xác minh hành vi từ góc nhìn user/QA _(bỏ qua nếu M1)_ |
 | **Phase 8** Test Results / Final Report | `/sdd-report T-001` | `report.md` | Đọc báo cáo cuối; xác nhận accepted risk và follow-up |
+| **Phase 9** Living Docs / Failure Mode Update | `/sdd-learnings T-001` | `promotion-candidates.md` + cập nhật `docs/maintenance/failure-mode-index.md` | Duyệt promotion candidates; xác nhận những gì được đưa vào chuẩn dự án |
 
 **Lệnh tiện ích** (Spec 32 — Long Context / Strategic Compact):
 - `/sdd-compact T-001` → `strategic-compact.md` — snapshot trạng thái session. Dán vào đầu session mới để tiếp tục mà không cần đọc lại tất cả.

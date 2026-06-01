@@ -20,9 +20,15 @@ biases the tests toward what was built, not what was specified.
 **Plan first** (goal, files to read, files to update, Stop/Ask points, plan).
 Do not edit until acknowledged.
 
-Goal: produce `blackbox-testcases.md` — a concrete, runnable set of test
-scenarios derived entirely from the spec, covering the cases most likely to
-reveal spec-vs-implementation divergence.
+Goal: produce two files in the ticket folder:
+- `blackbox-testcases.md` — a concrete, runnable set of test scenarios derived
+  entirely from the spec, covering the cases most likely to reveal
+  spec-vs-implementation divergence.
+- `test-data.md` — fixtures, seed data, environment variables, and cleanup
+  steps required to run the test cases.
+- `blackbox-review-checklist.md` — QA-perspective checklist: AC coverage,
+  UX, data/state, API contract, and sign-off. Fill each item as you run
+  or review the test cases.
 
 ## What to produce
 
@@ -74,5 +80,6 @@ Run command: <exact command or curl or UI steps>
   data, sending real emails, charging real money), stop and ask before running.
 
 When done: report how many test cases were written, how many were run, how many
-passed, and how many are manual. Tell the user to run `/sdd-report $ARGUMENTS`
-next.
+passed, and how many are manual. Confirm that `test-data.md` is populated with
+all fixtures and environment requirements, and that `blackbox-review-checklist.md`
+sign-off items are ticked. Tell the user to run `/sdd-report $ARGUMENTS` next.

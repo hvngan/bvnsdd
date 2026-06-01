@@ -28,11 +28,12 @@ Each ticket moves through SDD phases, driven by slash commands. Each command
 produces a real artifact file under `docs/changes/<TICKET>/`:
 
 `/sdd-new` → `/sdd-spec` → `/sdd-rightsize` → `/sdd-context` → `/sdd-plan` →
-`/sdd-implement` → `/sdd-test` → `/sdd-blackbox` → `/sdd-report`
+`/sdd-implement` → `/sdd-test` → `/sdd-blackbox` → `/sdd-report` → `/sdd-learnings`
 
 `/sdd-rightsize` formalises the operating mode (M1–M5/MX) and outputs an adapted
 workflow — M1 (Light) skips `/sdd-context`, `/sdd-plan`, and `/sdd-blackbox`.
 
+Run `/sdd-phase0a` once per project immediately after `bvn-sdd init` — before any tickets or `/sdd-map`.
 Run `/sdd-map` once per project before the first ticket.
 Run `/sdd-compact` at any point to snapshot session state for handoff or resume.
 

@@ -14,22 +14,24 @@ bvn-sdd init my-project  # create a new project (or: bvn-sdd init --here)
 
 Choose a language when prompted: 1=Tiếng Việt / 2=English / 3=日本語
 
-Then **open the project in Claude Code**.
+Then **open the project in Claude Code** and run `/sdd-phase0a` immediately.
 
 ## 2. Phases from SDD-Installation Pack V04.2
 
 | Phase (V04.2) | Claude Code command | Produces | You do |
 |---|---|---|---|
-| **Phase 0-B** Common Base / Source Intelligence | `/sdd-map` | `docs/architecture/` — source map, routes, APIs, DB schema | **Once per project.** Run before the first ticket |
+| **Phase 0-A** Safety Gate | `/sdd-phase0a` | `docs/maintenance/phase0/` + `docs/standards/automation/` — safety evidence, context policy | **Once per project.** Run right after `bvn-sdd init`, before `/sdd-map` |
+| **Phase 0-B** Common Base / Source Intelligence | `/sdd-map` | `docs/architecture/` — source map, routes, APIs, DB schema, FE/BE contracts, test coverage | **Once per project.** Run before the first ticket |
 | **Bootstrap** (before Phase 1) | `/sdd-new T-001` | `docs/changes/T-001/` + all blank artifact files | Set a ticket ID |
 | **Phase 1** Investigation / Spec Pack | `/sdd-spec T-001` | `spec-pack.md`, `source-availability.md`, `open-issues.md` | Check ACs are correct; answer Open Issues |
 | **Phase 1** Right-sizing | `/sdd-rightsize T-001` | `mode-decision.md` — mode M1–M5/MX + adapted workflow | **Important:** confirm mode before continuing |
-| **Phase 2** Ticket Context / Rules | `/sdd-context T-001` | `context.md`, `source-map.md` | Confirm patterns, real methods, forbidden patterns *(skip for M1)* |
+| **Phase 2** Ticket Context / Rules | `/sdd-context T-001` | `context.md`, `source-map.md`, `ticket-rules.md` | Confirm patterns, real methods, forbidden patterns *(skip for M1)* |
 | **Phase 3** Impact Analysis / Impl Plan | `/sdd-plan T-001` | `impact-analysis.md`, `impl-plan.md` | Review FE/BE/DB impact scope and plan *(skip for M1)* |
-| **Phase 4+5** Review Checklist + Implementation / AI Review / Human Review | `/sdd-implement T-001` | code + `review-checklist.md`, `self-review.md` | Read AI-written code; check self-review; approve |
+| **Phase 4+5** Review Checklist + Implementation / AI Review / Human Review | `/sdd-implement T-001` | code + `review-checklist.md`, `self-review.md` | Read AI-written code; check self-review; **fill `human-review.md`** then approve |
 | **Phase 6** Test Plan / Test Code | `/sdd-test T-001` | `test-plan.md`, `test-results.md` | Verify tests actually PASS; read results |
-| **Phase 7** Black-box Test / Test Data | `/sdd-blackbox T-001` | `blackbox-testcases.md` | Verify behaviour from the user/QA perspective *(skip for M1)* |
+| **Phase 7** Black-box Test / Test Data | `/sdd-blackbox T-001` | `blackbox-testcases.md`, `test-data.md`, `blackbox-review-checklist.md` | Verify behaviour from the user/QA perspective *(skip for M1)* |
 | **Phase 8** Test Results / Final Report | `/sdd-report T-001` | `report.md` | Read the final report; confirm accepted risks and follow-ups |
+| **Phase 9** Living Docs / Failure Mode Update | `/sdd-learnings T-001` | `promotion-candidates.md` + updates to `docs/maintenance/failure-mode-index.md` | Review promotion candidates; confirm what gets added to project standards |
 
 **Utility** (Spec 32 — Long Context / Strategic Compact):
 - `/sdd-compact T-001` → `strategic-compact.md` — session snapshot. Paste at the start of a new session to resume without re-reading everything.

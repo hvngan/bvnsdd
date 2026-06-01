@@ -24,4 +24,6 @@ Update `report.md` with:
 - failure-mode candidates to register in `docs/maintenance/failure-mode-index.md`
 
 Keep it factual: if tests failed or steps were skipped, say so. When done,
-summarize the ticket outcome and list any follow-up items for a human.
+summarize the ticket outcome and list any follow-up items for a human. Tell the
+user to run `/sdd-learnings $ARGUMENTS` to register failure modes and close the
+learning loop.

@@ -22,8 +22,11 @@ Then produce/update under `docs/architecture/`:
 - `system-map.md` — high-level components and how they relate
 - `source-inventory.md` — key files/directories and their purpose
 - As applicable: `entrypoint-map.md`, `route-api-map.md`, `service-layer-map.md`,
-  `repository-db-map.md`, `data-flow-map.md`, `external-interface-map.md`
+  `repository-db-map.md`, `data-flow-map.md`, `external-interface-map.md`,
+  `fe-be-contract-map.md` (FE/BE API contracts and DTO shapes),
+  `test-map.md` (existing test coverage per layer — unit / integration / e2e)
 
 Rules: record what you read and could not read; mark inferences as Assumptions;
-never open secrets/.env/PII. When done, summarize the map and suggest which
-`docs/standards/*` files need filling in.
+never open secrets/.env/PII. When done, summarize the map and list which
+`docs/standards/*` files should be created or updated (coding, testing, security,
+logging) based on patterns observed in the codebase.

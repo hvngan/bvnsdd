@@ -10,6 +10,30 @@ resolve whichever exists, then copy its three top-level trees into the target:
 
 `claude` is stored unhidden in source (a leading dot confuses packaging) and
 renamed to `.claude` on copy.
+
+Template layout under `core_pack/bvn-sdd/templates/`:
+  ├── *.md                    ticket-level artifacts (copied by /sdd-new)
+  │   includes: spec-pack, source-availability, open-issues, mode-decision,
+  │             context, source-map, ticket-rules,
+  │             impact-analysis, impl-plan,
+  │             review-checklist, self-review, human-review,
+  │             test-plan, test-results,
+  │             blackbox-testcases, blackbox-review-checklist, test-data,
+  │             strategic-compact, report, promotion-candidates
+  ├── phase0/                 project-level Phase 0-A artifacts (used by /sdd-phase0a)
+  │   ├── phase0-plan.md
+  │   ├── phase0-decisions.md
+  │   ├── phase0-execution-log.md
+  │   ├── phase0-risk-register.md
+  │   └── phase0-review.md
+  └── automation/             context and external-content policies (used by /sdd-phase0a)
+      ├── context-loading-policy.md
+      ├── external-content-intake.md
+      └── repo-intake-checklist.md
+
+All subtrees are copied recursively by `scaffold()`. The phase0/ and automation/
+subdirectories are project-level (one per project, created by /sdd-phase0a) and
+must NOT be copied into per-ticket folders by /sdd-new.
 """
 
 from __future__ import annotations
