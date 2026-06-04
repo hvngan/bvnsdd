@@ -39,11 +39,11 @@ Cả hai kịch bản dùng cùng tập lệnh — command tự phát hiện ch�
 | **Bootstrap** (trước Phase 1) | `/sdd-new T-001` | `docs/changes/T-001/` + tất cả file trống | Đặt mã ticket |
 | **Phase 1** Investigation / Spec Pack | `/sdd-spec T-001` | `spec-pack.md`, `source-availability.md`, `open-issues.md` | Kiểm tra AC đúng chưa; trả lời Open Issues |
 | **Phase 1** Right-sizing | `/sdd-rightsize T-001` | `mode-decision.md` — chế độ M1–M5/MX + workflow được điều chỉnh | **Quan trọng:** xác nhận chế độ trước khi tiếp tục |
-| **Phase 2** Ticket Context / Rules | `/sdd-context T-001` | `context.md`, `source-map.md`, `ticket-rules.md` | Xác nhận pattern, method thực tồn tại, điều cấm _(bỏ qua nếu M1)_ |
-| **Phase 3** Impact Analysis / Impl Plan | `/sdd-plan T-001` | `impact-analysis.md`, `impl-plan.md` | Duyệt phạm vi ảnh hưởng FE/BE/DB và kế hoạch _(bỏ qua nếu M1)_ |
+| **Phase 2** Ticket Context / Rules | `/sdd-context T-001` | `context.md`, `source-map.md`, `ticket-rules.md` | Xác nhận pattern, method thực tồn tại, điều cấm _(M1: làm gọn, không bỏ)_ |
+| **Phase 3** Impact Analysis / Impl Plan | `/sdd-plan T-001` | `impact-analysis.md`, `impl-plan.md` | Duyệt phạm vi ảnh hưởng FE/BE/DB và kế hoạch _(M1: làm gọn, không bỏ)_ |
 | **Phase 4+5** Review Checklist + Implementation / AI Review / Human Review | `/sdd-implement T-001` | code + `review-checklist.md`, `self-review.md` | Đọc code AI viết; kiểm tra self-review; **điền `human-review.md`** rồi duyệt |
 | **Phase 6** Test Plan / Test Code | `/sdd-test T-001` | `test-plan.md`, `test-results.md` | Xem test có PASS thật không; đọc kết quả |
-| **Phase 7** Black-box Test / Test Data | `/sdd-blackbox T-001` | `blackbox-testcases.md`, `test-data.md`, `blackbox-review-checklist.md` | Xác minh hành vi từ góc nhìn user/QA _(bỏ qua nếu M1)_ |
+| **Phase 7** Black-box Test / Test Data | `/sdd-blackbox T-001` | `blackbox-testcases.md`, `test-data.md`, `blackbox-review-checklist.md` | Xác minh hành vi từ góc nhìn user/QA _(M1: vài case chính, không bỏ)_ |
 | **Phase 8** Test Results / Final Report | `/sdd-report T-001` | `report.md` | Đọc báo cáo cuối; xác nhận accepted risk và follow-up |
 | **Phase 9** Living Docs / Failure Mode Update | `/sdd-learnings T-001` | `promotion-candidates.md` + cập nhật `docs/maintenance/failure-mode-index.md` | Duyệt promotion candidates; xác nhận những gì được đưa vào chuẩn dự án |
 
@@ -52,14 +52,17 @@ Cả hai kịch bản dùng cùng tập lệnh — command tự phát hiện ch�
 
 ## 4. Chế độ (do `/sdd-rightsize` quyết định)
 
-| Chế độ | Tên | Khi nào dùng | Lệnh bỏ qua |
+> **Chế độ đặt ĐỘ SÂU của mỗi phase, KHÔNG bỏ phase.** Mọi ticket — đơn hay đa nền
+> tảng — chạy đủ toàn bộ chuỗi phase; M1 chỉ viết gọn artifact. Chỉ **MX** mới dừng.
+
+| Chế độ | Tên | Khi nào dùng | Độ sâu ở chế độ này |
 |---|---|---|---|
-| **M1** | Light | Sửa text, config, bug nhỏ < 3 file | context, plan, blackbox |
-| **M2** | Standard | Feature thông thường, 1 service | Không bỏ |
-| **M3** | Plus | Đụng FE+BE contract, 10–30 file | Không bỏ |
-| **M4** | Heavy | Thay đổi kiến trúc, DB migration | Không bỏ + security review |
-| **M5** | Critical | Vá lỗi bảo mật, sự cố production | Escalate ngay cho người phụ trách |
-| **MX** | Stop | Yêu cầu chưa rõ hoặc rủi ro quá cao | Dừng, giải quyết open issues trước |
+| **M1** | Light | Sửa text, config, bug nhỏ < 3 file | Đủ phase nhưng artifact gọn (nếu không có gì riêng, ghi 1 dòng); chỉ self-review |
+| **M2** | Standard | Feature thông thường, 1 service | Độ sâu chuẩn cho mọi artifact |
+| **M3** | Plus | Đụng FE+BE contract, 10–30 file | Chuẩn + chú trọng FE/BE contract; thêm artifact sâu theo nhu cầu (contract-map, codex-review) |
+| **M4** | Heavy | Thay đổi kiến trúc, DB migration | Đầy đủ + heavy-source-analysis, security-review, rollback/migration plan, independent review |
+| **M5** | Critical | Vá lỗi bảo mật, sự cố production | Sâu nhất + cổng người bắt buộc (threat model, bằng chứng test, audit); escalate cho người phụ trách |
+| **MX** | Stop | Yêu cầu chưa rõ hoặc rủi ro quá cao | Dừng — giải quyết open issues trước. Chế độ duy nhất dừng việc |
 
 ## 5. 5 nguyên tắc bắt buộc
 
@@ -93,3 +96,8 @@ Mỗi phase đều hiển thị:
 - Quyết định hoặc xác nhận bạn cần đưa ra trước khi sang phase tiếp theo
 
 Bao gồm toàn bộ luồng greenfield: Phase 0-A → Phase 0-B → Bootstrap T-001 → Spec → Rightsize → Context → Plan → Implement → Test → Black-box → Report → Learnings.
+
+Các walkthrough khác (đều chạy đủ toàn bộ phase):
+- **[EXAMPLE-cross-platform-weather-vi.md](EXAMPLE-cross-platform-weather-vi.md)** — Android + iOS từ một spec chung (đa nền tảng, M3).
+- **[EXAMPLE-existing-api-survey-vi.md](EXAMPLE-existing-api-survey-vi.md)** — dự án backend CÓ SẴN: Phase 0-B Survey mode đọc source thật (M3).
+- **[EXAMPLE-heavy-db-migration-vi.md](EXAMPLE-heavy-db-migration-vi.md)** — DB migration + security trên hệ thống có sẵn (M4 Heavy), gồm cả kịch bản test FAIL→fix.

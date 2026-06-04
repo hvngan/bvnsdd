@@ -8,7 +8,7 @@ You are a principal engineer producing the impact analysis and implementation
 plan for ticket **$ARGUMENTS**. Work in `docs/changes/$ARGUMENTS/`.
 
 Read first: this ticket's `spec-pack.md`, `context.md`, `source-map.md`,
-`docs/architecture/*`, `docs/standards/*`.
+`docs/architecture/*`, `docs/standards/*`, and `.bvn-sdd/config.yml` `platforms:`.
 
 **Plan first** (goal, files to read, files to update, Stop/Ask points, plan).
 Do not edit until acknowledged.
@@ -24,6 +24,19 @@ Update:
   reasons; classes/functions to add or modify; intended input/output; intended
   SQL/queries (target table, where-conditions, volume/performance risk);
   approach to validation, error handling, logging, tests, migration, rollback.
+
+**Multi-platform.** If `platforms:` lists more than one platform, fill the
+`### Shared` / `### Android` / `### iOS` subsections of `impl-plan.md` and the
+per-platform impact tables of `impact-analysis.md`. Put shared data/contract work
+in the Shared subsection only — never duplicate it per platform. Fill the
+**Cross-platform parity check** table (shared AC → Android impl → iOS impl →
+identical?). Confirm the mode is M3+ when two native trees are in scope.
+
+**Depth by mode (this phase always runs).** In M1, keep `impact-analysis.md` and
+`impl-plan.md` brief — a short impact table and a skeleton are enough; if an area is
+not affected, one line stating why suffices. Never skip the artifact. M3+ adds the
+on-demand deep artifacts noted in `mode-decision.md` (e.g. `fe-be-contract-map.md`,
+`heavy-source-analysis.md`).
 
 If the change involves DB changes or contract changes, recommend escalating to a
 Heavy mode and note it. Verify against the real source. When done, tell the user

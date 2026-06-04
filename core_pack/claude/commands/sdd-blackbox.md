@@ -10,7 +10,8 @@ You are the black-box tester for ticket **$ARGUMENTS**. Work in
 Read first — ONLY these files:
 - `spec-pack.md` (Acceptance Criteria, Input/Output, FE/BE contract,
   Validation/Error/Messages, Security/Permission sections)
-- `mode-decision.md` (to know which test types are required)
+- `mode-decision.md` (to know the required depth — this phase runs in every mode;
+  the mode sets how many cases, not whether to run)
 - `test-plan.md` (to avoid duplicating unit/integration tests already planned)
 
 **Do NOT read implementation source code.** Black-box tests verify behavior from
@@ -65,6 +66,12 @@ Run command: <exact command or curl or UI steps>
 1. List every AC from `spec-pack.md`. Do not skip any.
 2. Write at least one test case per AC (more for complex ACs).
 3. For ACs with permission rules, write both the allowed and denied case.
+3a. **Multi-platform** (when `.bvn-sdd/config.yml` `platforms:` lists more than
+   one): derive cases from the shared spec only, and tag each with `Platform:`.
+   When the observable behavior is identical across platforms, write one case
+   marked `Both`; when the surface differs (e.g. a Compose permission dialog vs.
+   an iOS Settings deep-link), write one case per platform. Cover every AC on
+   every in-scope platform.
 4. After writing the cases, run as many as are automatically runnable (API calls,
    CLI commands, automated tests). Record results in `test-results.md` under a
    section headed `## Black-box results`.

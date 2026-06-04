@@ -8,7 +8,15 @@ You are preparing the working context for ticket **$ARGUMENTS**. Work in
 `docs/changes/$ARGUMENTS/`.
 
 Read first: `.claude/CLAUDE.md`, `.claude/rules/*`, this ticket's `spec-pack.md`
-and `open-issues.md`, `docs/architecture/*`, `docs/standards/*`.
+and `open-issues.md`, `docs/architecture/*`, `docs/standards/*`, and
+`.bvn-sdd/config.yml` `platforms:`.
+
+**Multi-platform.** If `platforms:` lists more than one platform, populate the
+`### Shared` / `### Android patterns` / `### iOS patterns` subsections of
+`context.md` and the per-tree groups of `source-map.md`. Verify each platform's
+APIs against that platform's own tree (`android/` vs `ios/`). Keep DTO/contract,
+master data, and encoding in the shared sections — never fork them per platform.
+If `platforms:` lists one platform, keep only that subsection.
 
 **Plan first** (goal, files to read, files to update, Stop/Ask points, plan).
 Do not edit until acknowledged.
@@ -68,5 +76,10 @@ Mark anything uncertain (technology choices, API shapes, naming) in `open-issues
 so the human can decide before implementation begins.
 
 ---
+
+**Depth by mode (this phase always runs).** In M1, keep `context.md`,
+`source-map.md`, and `ticket-rules.md` brief — if a ticket has no unique pattern or
+rule, a one-line note saying so is enough; do not skip the artifact. M2+ uses
+standard depth; M4/M5 verify more exhaustively against source.
 
 When done, tell the user to run `/sdd-plan $ARGUMENTS` next.

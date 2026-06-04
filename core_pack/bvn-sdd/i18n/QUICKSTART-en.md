@@ -39,11 +39,11 @@ Both paths use the same commands — the commands detect the mode automatically 
 | **Bootstrap** (before Phase 1) | `/sdd-new T-001` | `docs/changes/T-001/` + all blank artifact files | Set a ticket ID |
 | **Phase 1** Investigation / Spec Pack | `/sdd-spec T-001` | `spec-pack.md`, `source-availability.md`, `open-issues.md` | Check ACs are correct; answer Open Issues |
 | **Phase 1** Right-sizing | `/sdd-rightsize T-001` | `mode-decision.md` — mode M1–M5/MX + adapted workflow | **Important:** confirm mode before continuing |
-| **Phase 2** Ticket Context / Rules | `/sdd-context T-001` | `context.md`, `source-map.md`, `ticket-rules.md` | Confirm patterns, real methods, forbidden patterns *(skip for M1)* |
-| **Phase 3** Impact Analysis / Impl Plan | `/sdd-plan T-001` | `impact-analysis.md`, `impl-plan.md` | Review FE/BE/DB impact scope and plan *(skip for M1)* |
+| **Phase 2** Ticket Context / Rules | `/sdd-context T-001` | `context.md`, `source-map.md`, `ticket-rules.md` | Confirm patterns, real methods, forbidden patterns *(M1: keep brief, not skipped)* |
+| **Phase 3** Impact Analysis / Impl Plan | `/sdd-plan T-001` | `impact-analysis.md`, `impl-plan.md` | Review FE/BE/DB impact scope and plan *(M1: keep brief, not skipped)* |
 | **Phase 4+5** Review Checklist + Implementation / AI Review / Human Review | `/sdd-implement T-001` | code + `review-checklist.md`, `self-review.md` | Read AI-written code; check self-review; **fill `human-review.md`** then approve |
 | **Phase 6** Test Plan / Test Code | `/sdd-test T-001` | `test-plan.md`, `test-results.md` | Verify tests actually PASS; read results |
-| **Phase 7** Black-box Test / Test Data | `/sdd-blackbox T-001` | `blackbox-testcases.md`, `test-data.md`, `blackbox-review-checklist.md` | Verify behaviour from the user/QA perspective *(skip for M1)* |
+| **Phase 7** Black-box Test / Test Data | `/sdd-blackbox T-001` | `blackbox-testcases.md`, `test-data.md`, `blackbox-review-checklist.md` | Verify behaviour from the user/QA perspective *(M1: a few key cases, not skipped)* |
 | **Phase 8** Test Results / Final Report | `/sdd-report T-001` | `report.md` | Read the final report; confirm accepted risks and follow-ups |
 | **Phase 9** Living Docs / Failure Mode Update | `/sdd-learnings T-001` | `promotion-candidates.md` + updates to `docs/maintenance/failure-mode-index.md` | Review promotion candidates; confirm what gets added to project standards |
 
@@ -52,14 +52,18 @@ Both paths use the same commands — the commands detect the mode automatically 
 
 ## 4. Modes (decided by `/sdd-rightsize`)
 
-| Mode | Name | When | Commands skipped |
+> **The mode sets the DEPTH of each phase — it does NOT skip phases.** Every ticket,
+> single- or multi-platform, runs the full phase sequence; M1 just keeps each
+> artifact brief. Only **MX** halts work.
+
+| Mode | Name | When | Depth at this mode |
 |---|---|---|---|
-| **M1** | Light | Text fix, config, small bug < 3 files | context, plan, blackbox |
-| **M2** | Standard | Normal feature, single service | None |
-| **M3** | Plus | FE+BE contract change, 10–30 files | None |
-| **M4** | Heavy | Architecture change, DB migration | None + security review added |
-| **M5** | Critical | Security patch, production incident | Escalate to human lead immediately |
-| **MX** | Stop | Requirements unclear or risk too high | Halt — resolve open issues first |
+| **M1** | Light | Text fix, config, small bug < 3 files | All phases run, artifacts kept brief (a one-line note if nothing unique); self-review only |
+| **M2** | Standard | Normal feature, single service | Standard depth for every artifact |
+| **M3** | Plus | FE+BE contract change, 10–30 files | Standard + focus on FE/BE contract; add on-demand deep artifacts (contract-map, codex-review) |
+| **M4** | Heavy | Architecture change, DB migration | Full + heavy-source-analysis, security-review, rollback/migration plan, independent review |
+| **M5** | Critical | Security patch, production incident | Maximum + mandatory human gate (threat model, test evidence, audit); escalate to human lead |
+| **MX** | Stop | Requirements unclear or risk too high | Halt — resolve open issues first. The only mode that stops work |
 
 ## 5. Five non-negotiable rules
 
@@ -93,3 +97,8 @@ It shows, for every phase:
 - The decision or approval you make before the next phase
 
 Covers the full greenfield path: Phase 0-A → Phase 0-B → T-001 Bootstrap → Spec → Rightsize → Context → Plan → Implement → Test → Black-box → Report → Learnings.
+
+Other walkthroughs (each runs the full phase sequence):
+- **[EXAMPLE-cross-platform-weather-en.md](EXAMPLE-cross-platform-weather-en.md)** — Android + iOS from one shared spec (multi-platform, M3).
+- **[EXAMPLE-existing-api-survey-en.md](EXAMPLE-existing-api-survey-en.md)** — an EXISTING backend project: Phase 0-B Survey mode over real source (M3).
+- **[EXAMPLE-heavy-db-migration-en.md](EXAMPLE-heavy-db-migration-en.md)** — DB migration + security on an existing system (M4 Heavy), including a test FAIL→fix scenario.

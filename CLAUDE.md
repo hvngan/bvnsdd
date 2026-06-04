@@ -24,6 +24,8 @@ pytest tests/test_init.py::test_scaffold_creates_expected_tree
 bvn-sdd check
 bvn-sdd init my-project
 bvn-sdd init --here --lang en
+bvn-sdd init my-project --no-git --lang en   # skip git init
+bvn-sdd init my-project --force --lang en    # overwrite existing files
 
 # Build the wheel (bundles core_pack inside)
 python -m hatchling build
@@ -54,12 +56,12 @@ Three directories that become the scaffolded output:
 - **`bvn-sdd/`** → `.bvn-sdd/` in target project
   - `config.yml` — language, default mode (M2), tickets_dir, artifact list
   - `templates/` — 20 blank artifact `.md` files per ticket + `phase0/` + `automation/`
-  - `i18n/` — language-specific QUICKSTART files (vi/en/ja)
-  - `scripts/` — `create-ticket.sh` and `create-ticket.ps1` helpers
+  - `i18n/` — `QUICKSTART-<lang>.md` (vi/en/ja) + `EXAMPLE-*.md` green-field walkthroughs
+  - `scripts/powershell/create-ticket.ps1` and `scripts/bash/create-ticket.sh`
 
 - **`docs/`** → `docs/` in target project
   - `architecture/` — stubs for `/sdd-map` to populate (system, routes, APIs, DB, contracts)
-  - `standards/` — coding, testing, review, security convention stubs
+  - `standards/` — coding, testing, review, security, cross-platform convention stubs
   - `maintenance/` — `failure-mode-index.md`, `pattern-library.md` (living docs)
   - `changes/` — per-ticket folders created by `/sdd-new T-001`
 
@@ -94,7 +96,10 @@ The 13 slash commands implement a sequential 9-phase workflow per ticket:
 | `/sdd-learnings T-001` | 9 Learnings | `promotion-candidates.md`; updates `failure-mode-index.md`, `pattern-library.md` |
 | `/sdd-compact T-001` | Utility | `strategic-compact.md` (session snapshot) |
 
-Mode M1 (Light) skips Phases 2–3 and Phase 7. Mode MX stops work entirely.
+The mode sets the **depth** of each phase — it does not skip phases. Every ticket
+(single- or multi-platform) runs the full sequence above; M1 (Light) just keeps each
+artifact brief, while M4/M5 add depth and extra review. Only Mode MX stops work
+entirely.
 
 ## Important Constraints
 
@@ -102,3 +107,4 @@ Mode M1 (Light) skips Phases 2–3 and Phase 7. Mode MX stops work entirely.
 - **The `core_pack/claude/CLAUDE.md`** is the AI constitution deployed to user projects — it is *not* the CLAUDE.md for developing this CLI (that is this file).
 - **Wheel bundling:** If you add new files under `core_pack/`, verify they are included in the `hatchling` `force-include` config in `pyproject.toml`.
 - **Language directive files** (`00-language.md`) are generated at runtime and must never be committed to `core_pack/`.
+- **`phase0/` and `automation/` are project-level** (one copy per project, created by `/sdd-phase0a`). They live under `templates/` only as source; `/sdd-new` must NOT copy them into per-ticket folders — only the root-level `*.md` templates belong there.

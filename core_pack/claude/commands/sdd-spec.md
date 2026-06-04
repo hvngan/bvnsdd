@@ -30,6 +30,12 @@ Instructions:
   be right about business rules, raise it as an open issue.
 - Do a rough classification of impact across FE / BE / DB / Security / Operation
   / Test, and fill the **Complexity Classification** section.
+- Read `.bvn-sdd/config.yml` `platforms:`. Keep Acceptance Criteria, Input/Output,
+  Validation, and Security strictly platform-neutral (the WHAT — never name
+  Kotlin/Swift/Compose/SwiftUI). Fill section 8 *Surface impact (per platform)*
+  with one row per in-scope platform, and write section 9 as ONE shared contract
+  consumed identically by every client. If `platforms:` lists one platform, keep
+  only its row. Multi-platform delivery raises baseline scope — flag M3+.
 
 When done: report the preliminary mode recommendation (Light / Standard / Heavy),
 list open issues needing human decisions, and tell the user to run

@@ -1,7 +1,9 @@
 # Mode Decision — <TICKET>
 
 > This document is the authoritative record of the operating mode chosen for this
-> ticket. All subsequent phases must respect the adapted workflow defined here.
+> ticket. The mode sets the DEPTH of each phase — it does not skip phases. Every
+> ticket runs the full sequence (context → plan → implement → test → blackbox →
+> report → learnings); a light mode just keeps each artifact brief. Only MX halts.
 
 ## Scoring
 
@@ -24,25 +26,32 @@ _One-paragraph rationale referencing the score and any override conditions._
 - [ ] No unresolved blocking issues in `open-issues.md`
 - [ ] Scope is clear enough to score Uncertainty with confidence
 
-## Adapted workflow
+## Per-phase depth
 
-_Ordered list of commands to run for this ticket, derived from the mode default
-and any ticket-specific additions or omissions._
+_Every phase runs. Record how deep each goes for this mode (brief / standard /
+full), not whether it is skipped._
 
-1. `/sdd-context <TICKET>`
-2. `/sdd-plan <TICKET>`
-3. ...
-
-## Phases / artifacts skipped
-
-_List any standard phase or artifact that is explicitly skipped for this ticket,
-with justification._
-
-| Phase / Artifact | Skipped? | Reason |
+| Phase | Depth (brief / standard / full) | Notes |
 |---|---|---|
-| sdd-context | | |
-| sdd-plan | | |
-| sdd-blackbox | | |
+| Context (`/sdd-context`) | | |
+| Plan (`/sdd-plan`) | | |
+| Implement + review (`/sdd-implement`) | | |
+| Test (`/sdd-test`) | | |
+| Black-box (`/sdd-blackbox`) | | |
+| Report (`/sdd-report`) | | |
+| Learnings (`/sdd-learnings`) | | |
+
+## On-demand deep artifacts (M3+)
+
+_Deep artifacts to add for this ticket if the mode/scope needs them — created on
+demand, not part of the default scaffold. Leave empty for M1/M2._
+
+| Artifact | Needed? | Reason |
+|---|---|---|
+| `fe-be-contract-map.md` | | |
+| `security-review.md` | | |
+| `codex-review.md` | | |
+| `heavy-source-analysis.md` | | |
 
 ## Human decisions required before proceeding
 

@@ -37,6 +37,12 @@ Rules:
   existing bugs or violations.
 - If unsure, return to `open-issues.md` instead of guessing.
 - Run lint/build/test where possible and capture the commands and results.
+- **Multi-platform** (when `.bvn-sdd/config.yml` `platforms:` lists more than one):
+  implement each native tree from the SAME shared spec; do not let one platform's
+  idioms leak into the other. Before self-review, run the **Cross-platform
+  consistency** section of `review-checklist.md`: confirm every shared AC is
+  observable on both platforms and both clients consume the shared contract
+  identically. Record any intentional divergence in `open-issues.md`.
 
 After implementing, fill `self-review.md`:
 - implementation overview; files changed; spec/AC mapping; self-check against
