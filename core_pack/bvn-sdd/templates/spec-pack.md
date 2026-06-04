@@ -25,11 +25,20 @@ _Testable conditions. Use a checklist; reference IDs (AC-1, AC-2, ...)._
 ## 7. Input / Output
 _Inputs, outputs, and their shapes._
 
-## 8. Impact: screens / API / DB / batch / events
-_What surfaces this change touches._
+## 8. Surface impact (per platform)
+_What surfaces this change touches. Name the functional surface, not the widget
+(stay neutral on the HOW). For a single platform, keep only its row._
+| Platform | Screens / surfaces touched | Backend / API touched | Data / events |
+|---|---|---|---|
+| Shared (contract) |  |  |  |
+| Android |  |  |  |
+| iOS |  |  |  |
 
-## 9. FE/BE contract
-_Request/response shape, field names, types, error codes (if applicable)._
+## 9. Client/Service contract (platform-neutral)
+_Request/response shape, field names, types, error codes (if applicable). This
+contract is identical for every client (Android and iOS consume it the same
+way). Mark platform-only fields `[android-only]` / `[ios-only]`, but still
+define their type here._
 
 ## 10. Validation / Error / Messages
 _Validation rules, error handling, user-facing messages._
@@ -48,7 +57,8 @@ _What source was available; see source-availability.md for detail._
 
 ## 15. Complexity Classification
 _Recommended mode: M1 Light / M2 Standard / M3 Plus / M4 Heavy / M5 Critical.
-Briefly justify._
+Briefly justify. Note: delivering two native trees (e.g. Android + iOS) from one
+spec raises baseline scope — consider M3+._
 
 ## 16. Assumptions
 _Anything inferred rather than confirmed._

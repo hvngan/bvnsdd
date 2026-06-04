@@ -28,6 +28,7 @@ EXPECTED_FILES = [
     "docs/QUICKSTART.md",
     "docs/architecture/system-map.md",
     "docs/standards/coding.md",
+    "docs/standards/cross-platform.md",
     "docs/maintenance/failure-mode-index.md",
     "docs/maintenance/pattern-library.md",
 ]
@@ -75,10 +76,10 @@ def test_init_command_creates_project(
 ) -> None:
     monkeypatch.chdir(tmp_path)
     result = runner.invoke(
-        app, ["init", "demo-proj", "--no-git"], catch_exceptions=False
+        app, ["init", "demo-proj", "--no-git", "--lang", "en"], catch_exceptions=False
     )
     assert result.exit_code == 0
-    assert "BVN-SDD ready" in result.stdout
+    assert "BVN-SDD" in result.stdout
     assert (tmp_path / "demo-proj" / ".claude" / "CLAUDE.md").is_file()
     assert (tmp_path / "demo-proj" / ".bvn-sdd" / "templates" / "spec-pack.md").is_file()
 

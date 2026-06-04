@@ -12,7 +12,11 @@ assistant operating under specification, evidence, permissions, review, and test
    plan is acknowledged.
 2. **Single source of truth.** The specification of truth is the ticket's
    `docs/changes/<TICKET>/spec-pack.md`. Never invent requirements that are not
-   in it. Unknowns go to `open-issues.md`, not into code.
+   in it. Unknowns go to `open-issues.md`, not into code. For multi-platform
+   projects (`.bvn-sdd/config.yml` `platforms:` > 1), the one spec-pack drives
+   every native tree (e.g. Android + iOS); platform-specific HOW lives in the
+   split sections of context / source-map / impl-plan / impact / test artifacts,
+   never in the spec's acceptance criteria. See `docs/standards/cross-platform.md`.
 3. **Evidence over assumption.** State which files you read, which you could not
    read, and which parts are your own inference. Mark inferences as Assumptions.
 4. **Source code wins.** When source code and supporting documents (Office/PDF/
@@ -30,8 +34,10 @@ produces a real artifact file under `docs/changes/<TICKET>/`:
 `/sdd-new` → `/sdd-spec` → `/sdd-rightsize` → `/sdd-context` → `/sdd-plan` →
 `/sdd-implement` → `/sdd-test` → `/sdd-blackbox` → `/sdd-report` → `/sdd-learnings`
 
-`/sdd-rightsize` formalises the operating mode (M1–M5/MX) and outputs an adapted
-workflow — M1 (Light) skips `/sdd-context`, `/sdd-plan`, and `/sdd-blackbox`.
+`/sdd-rightsize` formalises the operating mode (M1–M5/MX). The mode sets the DEPTH
+of each phase — it never skips phases. Every ticket runs the full sequence above;
+M1 (Light) just keeps each artifact brief (a `context.md` may be a single line),
+while M4/M5 add depth and extra review. Only **MX** halts work.
 
 Run `/sdd-phase0a` once per project immediately after `bvn-sdd init` — before any tickets or `/sdd-map`.
 Run `/sdd-map` once per project before the first ticket.

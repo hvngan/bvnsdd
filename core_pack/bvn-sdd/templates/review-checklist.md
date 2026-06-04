@@ -11,13 +11,27 @@
 - [ ] Full-width / character-type handling correct
 - [ ] No stray magic numbers or hard-coded literals
 
-## FE
+## Android (Compose)
+_Keep only the platforms in `.bvn-sdd/config.yml` `platforms:`._
 - [ ] UI states (loading/empty/error) handled
 - [ ] Input validation and messages match spec
+- [ ] Follows Android / Compose native idioms (no iOS idiom leakage)
 
-## BE / API
+## iOS (SwiftUI)
+- [ ] UI states (loading/empty/error) handled
+- [ ] Input validation and messages match spec
+- [ ] Follows iOS / SwiftUI native idioms (no Android idiom leakage)
+
+## Shared contract (BE / API)
 - [ ] Contract (request/response/error codes) matches spec
 - [ ] Idempotency / concurrency considered
+- [ ] Both native clients consume the contract identically
+
+## Cross-platform consistency
+- [ ] Same AC behavior is observable on every in-scope platform
+- [ ] Shared contract / data model is not duplicated or forked per platform
+- [ ] Intentional divergences are documented (open-issues / impl-plan parity check)
+- [ ] Each platform follows its native idioms (no cross-contamination)
 
 ## DB / Migration
 - [ ] Schema/migration correct and reversible

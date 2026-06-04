@@ -8,10 +8,28 @@ language: vi
 
 # Default right-sizing mode for new tickets.
 # M1 Light | M2 Standard | M3 Plus | M4 Heavy | M5 Critical
+# The mode sets the DEPTH of each phase — it does not skip phases. Every ticket
+# runs the full phase sequence; M1 just keeps each artifact brief. Only MX halts.
 default_mode: M2
 
 # Where per-ticket artifacts live, relative to the project root.
 tickets_dir: docs/changes
+
+# Target delivery platforms. Single-platform is the default and most common;
+# listing more than one turns on the Shared / Android / iOS split in artifacts.
+# The spec-pack stays the single source of truth (the WHAT) for every platform;
+# only the HOW is split per platform in context / source-map / impl-plan /
+# impact-analysis / test-plan / blackbox artifacts.
+# Allowed: android | ios | web | backend | <custom>
+platforms:
+  - backend        # replace with your platform(s), e.g. android, ios
+
+# Optional: tech stack per platform, echoed into specs/standards (NEVER into
+# acceptance criteria). Uncomment + fill only for multi-platform projects.
+# platform_stack:
+#   shared: "spec-pack is the single source of truth (the WHAT)"
+#   android: "Kotlin, Jetpack Compose"
+#   ios: "Swift, SwiftUI"
 
 # Templates copied into each new ticket folder by /sdd-new.
 ticket_artifacts:

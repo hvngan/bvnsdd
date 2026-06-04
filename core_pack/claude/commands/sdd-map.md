@@ -7,7 +7,14 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 You are performing **Source Intelligence** (BVN-SDD Phase 0-B) for this project.
 Run this once per project, before the first ticket.
 
-Read `.claude/CLAUDE.md` and `.claude/rules/*` first.
+Read `.claude/CLAUDE.md`, `.claude/rules/*`, and `.bvn-sdd/config.yml`
+`platforms:` first.
+
+**Multi-platform.** If `platforms:` lists more than one platform, structure
+`system-map.md` as a shared-spec/contract layer plus one layer per native tree
+(e.g. `android/`, `ios/`). In SURVEY MODE, inventory each native tree separately;
+in GREEN-FIELD MODE, mark each platform layer `[PLANNED]`. See the `## Platforms`
+and `## Shared contract layer` sections of the `system-map.md` stub.
 
 ---
 

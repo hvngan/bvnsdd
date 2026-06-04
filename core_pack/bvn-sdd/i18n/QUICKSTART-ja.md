@@ -25,11 +25,11 @@ bvn-sdd init my-project    # プロジェクトを作成（または: bvn-sdd in
 | **Bootstrap**（Phase 1の前） | `/sdd-new T-001` | `docs/changes/T-001/` + すべての空のアーティファクトファイル | チケットIDを設定 |
 | **Phase 1** Investigation / Spec Pack | `/sdd-spec T-001` | `spec-pack.md`、`source-availability.md`、`open-issues.md` | ACが正しいか確認；Open Issuesに回答 |
 | **Phase 1** Right-sizing | `/sdd-rightsize T-001` | `mode-decision.md` — モード M1–M5/MX + 適応ワークフロー | **重要:** 続行前にモードを確認 |
-| **Phase 2** Ticket Context / Rules | `/sdd-context T-001` | `context.md`、`source-map.md`、`ticket-rules.md` | パターン、実在するメソッド、禁止パターンを確認 *（M1はスキップ）* |
-| **Phase 3** Impact Analysis / Impl Plan | `/sdd-plan T-001` | `impact-analysis.md`、`impl-plan.md` | FE/BE/DBの影響範囲と計画をレビュー *（M1はスキップ）* |
+| **Phase 2** Ticket Context / Rules | `/sdd-context T-001` | `context.md`、`source-map.md`、`ticket-rules.md` | パターン、実在するメソッド、禁止パターンを確認 *（M1は簡潔に、スキップしない）* |
+| **Phase 3** Impact Analysis / Impl Plan | `/sdd-plan T-001` | `impact-analysis.md`、`impl-plan.md` | FE/BE/DBの影響範囲と計画をレビュー *（M1は簡潔に、スキップしない）* |
 | **Phase 4+5** Review Checklist + Implementation / AI Review / Human Review | `/sdd-implement T-001` | コード + `review-checklist.md`、`self-review.md` | AIが書いたコードを読む；セルフレビューを確認；**`human-review.md` を記入**して承認 |
 | **Phase 6** Test Plan / Test Code | `/sdd-test T-001` | `test-plan.md`、`test-results.md` | テストが実際にPASSするか確認；結果を読む |
-| **Phase 7** Black-box Test / Test Data | `/sdd-blackbox T-001` | `blackbox-testcases.md`、`test-data.md`、`blackbox-review-checklist.md` | ユーザー/QAの視点から動作を検証 *（M1はスキップ）* |
+| **Phase 7** Black-box Test / Test Data | `/sdd-blackbox T-001` | `blackbox-testcases.md`、`test-data.md`、`blackbox-review-checklist.md` | ユーザー/QAの視点から動作を検証 *（M1は主要ケースのみ、スキップしない）* |
 | **Phase 8** Test Results / Final Report | `/sdd-report T-001` | `report.md` | 最終レポートを読む；accepted riskとフォローアップを確認 |
 | **Phase 9** Living Docs / Failure Mode Update | `/sdd-learnings T-001` | `promotion-candidates.md` + `docs/maintenance/failure-mode-index.md` 更新 | プロモーション候補をレビュー；プロジェクト標準への追加を承認 |
 
@@ -38,14 +38,18 @@ bvn-sdd init my-project    # プロジェクトを作成（または: bvn-sdd in
 
 ## 3. モード（`/sdd-rightsize` が決定）
 
-| モード | 名前 | 使用時期 | スキップするコマンド |
+> **モードは各フェーズの「深さ」を決めるもので、フェーズをスキップしません。** 単一・
+> マルチプラットフォームを問わず、すべてのチケットが全フェーズを実行します。M1 は各
+> アーティファクトを簡潔にするだけです。停止するのは **MX** のみ。
+
+| モード | 名前 | 使用時期 | このモードでの深さ |
 |---|---|---|---|
-| **M1** | Light | テキスト修正、設定、3ファイル未満の小さなバグ | context、plan、blackbox |
-| **M2** | Standard | 通常の機能開発、単一サービス | なし |
-| **M3** | Plus | FE+BEコントラクト変更、10〜30ファイル | なし |
-| **M4** | Heavy | アーキテクチャ変更、DBマイグレーション | なし + セキュリティレビュー追加 |
-| **M5** | Critical | セキュリティパッチ、本番インシデント | 即座に人間のリードにエスカレート |
-| **MX** | Stop | 要件が不明または高リスク | 停止 — 先にOpen Issuesを解決 |
+| **M1** | Light | テキスト修正、設定、3ファイル未満の小さなバグ | 全フェーズ実行、アーティファクトは簡潔（固有事項がなければ1行）；セルフレビューのみ |
+| **M2** | Standard | 通常の機能開発、単一サービス | すべてのアーティファクトを標準の深さで |
+| **M3** | Plus | FE+BEコントラクト変更、10〜30ファイル | 標準 + FE/BEコントラクト重視；必要に応じ深いアーティファクト追加（contract-map、codex-review） |
+| **M4** | Heavy | アーキテクチャ変更、DBマイグレーション | フル + heavy-source-analysis、security-review、ロールバック/移行計画、独立レビュー |
+| **M5** | Critical | セキュリティパッチ、本番インシデント | 最大 + 必須の人間ゲート（脅威モデル、テスト証跡、監査）；人間のリードにエスカレート |
+| **MX** | Stop | 要件が不明または高リスク | 停止 — 先にOpen Issuesを解決。作業を止める唯一のモード |
 
 ## 4. 5つの必須ルール
 
@@ -79,3 +83,8 @@ BVN-SDDを使って新しいiOS天気アプリをゼロから構築する完全�
 - 次のフェーズに進む前に行う判断または承認
 
 グリーンフィールドの完全なパスをカバー: Phase 0-A → Phase 0-B → T-001ブートストラップ → Spec → Rightsize → Context → Plan → Implement → Test → Black-box → Report → Learnings。
+
+その他のウォークスルー（いずれも全フェーズを実行）:
+- **[EXAMPLE-cross-platform-weather-ja.md](EXAMPLE-cross-platform-weather-ja.md)** — 1つの共有スペックから Android + iOS（マルチプラットフォーム、M3）。
+- **[EXAMPLE-existing-api-survey-ja.md](EXAMPLE-existing-api-survey-ja.md)** — 既存のバックエンドプロジェクト：実ソースに対する Phase 0-B サーベイモード（M3）。
+- **[EXAMPLE-heavy-db-migration-ja.md](EXAMPLE-heavy-db-migration-ja.md)** — 既存システムでの DBマイグレーション + セキュリティ（M4 Heavy）、テスト FAIL→修正 シナリオを含む。
