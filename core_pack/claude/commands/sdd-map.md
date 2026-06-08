@@ -48,6 +48,14 @@ Then produce/update under `docs/architecture/`:
   `fe-be-contract-map.md` (FE/BE API contracts and DTO shapes),
   `test-map.md` (existing test coverage per layer — unit / integration / e2e)
 
+**Multi-platform survey.** When `platforms:` lists more than one platform, add these files in addition to the standard maps:
+- `docs/architecture/platform-android-map.md` — Android tree survey: top-level package structure; architecture pattern (MVVM/MVI/Clean); DI framework; state management (StateFlow/LiveData/Compose State); navigation library; `minSdkVersion`; key ViewModels and Repositories with their file locations; existing test infrastructure (test runner, mocking library, UI test framework).
+- `docs/architecture/platform-ios-map.md` — iOS tree survey: module/directory structure; UI framework (UIKit/SwiftUI/mixed); architecture pattern; state management (@Observable/ObservableObject/Combine/async-await); navigation pattern; deployment target; key ViewModels/Services with their file locations; existing test infrastructure (XCTest, XCUITest).
+
+In `system-map.md`, add a **Parity Status** section: list features fully implemented on both platforms (parity intact), features present on only one platform (parity debt), and planned features not yet on either. Parity debt items are candidates for future tickets — do not silently include them in unrelated ticket scope.
+
+Note in `fe-be-contract-map.md` which contracts are consumed by both clients vs. only one.
+
 Rules: record what you read and could not read; mark inferences as Assumptions;
 never open secrets/.env/PII. When done, summarize the map and list which
 `docs/standards/*` files should be created or updated (coding, testing, security,

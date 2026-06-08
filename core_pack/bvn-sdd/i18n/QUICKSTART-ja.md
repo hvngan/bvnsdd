@@ -75,16 +75,14 @@ bvn-sdd init my-project    # プロジェクトを作成（または: bvn-sdd in
 
 ## 7. ウォークスルー例
 
-BVN-SDDを使って新しいiOS天気アプリをゼロから構築する完全なステップバイステップのウォークスルーは **[EXAMPLE-ios-weather-ja.md](EXAMPLE-ios-weather-ja.md)** を参照してください。
+**既存の Android + iOS コードベース**両方に対して WeatherNow に機能を追加する完全なウォークスルーは **[EXAMPLE-cross-platform-weather-ja.md](EXAMPLE-cross-platform-weather-ja.md)** を参照してください。
 
 各フェーズで以下を示します:
 - 実行する正確なコマンド
 - AIが生成する重要なアーティファクトの内容（リアルな抜粋）
 - 次のフェーズに進む前に行う判断または承認
 
-グリーンフィールドの完全なパスをカバー: Phase 0-A → Phase 0-B → T-001ブートストラップ → Spec → Rightsize → Context → Plan → Implement → Test → Black-box → Report → Learnings。
+既存コードベースの完全なパスをカバー: Phase 0-A → Phase 0-B（Survey Mode、`platform-android-map.md` + `platform-ios-map.md`） → T-001 ブートストラップ → Spec → Rightsize → Context（実際のパターンを検証、[PLANNED] なし） → Plan → Implement → Test → Black-box → Report → Learnings。
 
-その他のウォークスルー（いずれも全フェーズを実行）:
-- **[EXAMPLE-cross-platform-weather-ja.md](EXAMPLE-cross-platform-weather-ja.md)** — 1つの共有スペックから Android + iOS（マルチプラットフォーム、M3）。
-- **[EXAMPLE-existing-api-survey-ja.md](EXAMPLE-existing-api-survey-ja.md)** — 既存のバックエンドプロジェクト：実ソースに対する Phase 0-B サーベイモード（M3）。
-- **[EXAMPLE-heavy-db-migration-ja.md](EXAMPLE-heavy-db-migration-ja.md)** — 既存システムでの DBマイグレーション + セキュリティ（M4 Heavy）、テスト FAIL→修正 シナリオを含む。
+単一プラットフォーム ウォークスルー（グリーンフィールド、比較用）:
+- **[EXAMPLE-ios-weather-ja.md](EXAMPLE-ios-weather-ja.md)** — iOS のみ、ゼロから構築（M2）。コードベースがない場合との比較。

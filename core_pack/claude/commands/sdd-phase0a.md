@@ -59,6 +59,8 @@ Based on your inspection, flag any of the following that apply to this project:
 | Large auto-generated dirs | node_modules, dist, .next, build — should stay out of context |
 | Multi-repo / submodules | External code that AI should not treat as local source? |
 | Production DB access possible | env vars pointing to prod? |
+| Mobile API keys | `local.properties`, `google-services.json`, `GoogleService-Info.plist` present? Note existence only — never read values; verify all are in `.gitignore` |
+| Declared OS permissions | `AndroidManifest.xml` `<uses-permission>` / `Info.plist` `NS*UsageDescription` — inventory for new-feature risk awareness; sensitive permissions (camera, microphone, contacts) = Medium |
 
 For each risk that applies, note the severity (Low / Medium / High) and the
 mitigation already in place or needed.

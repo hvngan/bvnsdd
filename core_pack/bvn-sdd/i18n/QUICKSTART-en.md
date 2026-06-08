@@ -89,16 +89,14 @@ Both paths use the same commands — the commands detect the mode automatically 
 
 ## 8. Walkthrough Example
 
-See **[EXAMPLE-ios-weather-en.md](EXAMPLE-ios-weather-en.md)** for a complete, step-by-step walkthrough of building a new iOS weather app from scratch using BVN-SDD.
+See **[EXAMPLE-cross-platform-weather-en.md](EXAMPLE-cross-platform-weather-en.md)** for a complete walkthrough of adding a feature to WeatherNow running on **both existing Android and iOS codebases** using BVN-SDD.
 
 It shows, for every phase:
 - The exact command you run
 - The key artifact content the AI produces (realistic excerpts)
 - The decision or approval you make before the next phase
 
-Covers the full greenfield path: Phase 0-A → Phase 0-B → T-001 Bootstrap → Spec → Rightsize → Context → Plan → Implement → Test → Black-box → Report → Learnings.
+Covers the full existing-codebase path: Phase 0-A → Phase 0-B (Survey Mode, `platform-android-map.md` + `platform-ios-map.md`) → T-001 Bootstrap → Spec → Rightsize → Context (verifying real patterns, no [PLANNED]) → Plan → Implement → Test → Black-box → Report → Learnings.
 
-Other walkthroughs (each runs the full phase sequence):
-- **[EXAMPLE-cross-platform-weather-en.md](EXAMPLE-cross-platform-weather-en.md)** — Android + iOS from one shared spec (multi-platform, M3).
-- **[EXAMPLE-existing-api-survey-en.md](EXAMPLE-existing-api-survey-en.md)** — an EXISTING backend project: Phase 0-B Survey mode over real source (M3).
-- **[EXAMPLE-heavy-db-migration-en.md](EXAMPLE-heavy-db-migration-en.md)** — DB migration + security on an existing system (M4 Heavy), including a test FAIL→fix scenario.
+Single-platform walkthrough (greenfield, for comparison):
+- **[EXAMPLE-ios-weather-en.md](EXAMPLE-ios-weather-en.md)** — iOS only, built from scratch (M2). Compare when no codebase exists yet.

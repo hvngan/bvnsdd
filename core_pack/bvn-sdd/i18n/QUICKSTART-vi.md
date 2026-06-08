@@ -88,16 +88,14 @@ Cả hai kịch bản dùng cùng tập lệnh — command tự phát hiện ch�
 
 ## 8. Ví dụ Walkthrough
 
-Xem **[EXAMPLE-ios-weather-vi.md](EXAMPLE-ios-weather-vi.md)** để có walkthrough đầy đủ, từng bước về việc xây dựng ứng dụng thời tiết iOS mới từ đầu bằng BVN-SDD.
+Xem **[EXAMPLE-cross-platform-weather-vi.md](EXAMPLE-cross-platform-weather-vi.md)** để có walkthrough đầy đủ về việc thêm tính năng vào app WeatherNow đang chạy trên **cả Android và iOS có sẵn** theo BVN-SDD.
 
 Mỗi phase đều hiển thị:
 - Lệnh chính xác bạn chạy
 - Nội dung artifact quan trọng AI tạo ra (trích đoạn thực tế)
 - Quyết định hoặc xác nhận bạn cần đưa ra trước khi sang phase tiếp theo
 
-Bao gồm toàn bộ luồng greenfield: Phase 0-A → Phase 0-B → Bootstrap T-001 → Spec → Rightsize → Context → Plan → Implement → Test → Black-box → Report → Learnings.
+Bao gồm toàn bộ luồng codebase có sẵn: Phase 0-A → Phase 0-B (Survey Mode, `platform-android-map.md` + `platform-ios-map.md`) → Bootstrap T-001 → Spec → Rightsize → Context (xác minh thực tế, không có [PLANNED]) → Plan → Implement → Test → Black-box → Report → Learnings.
 
-Các walkthrough khác (đều chạy đủ toàn bộ phase):
-- **[EXAMPLE-cross-platform-weather-vi.md](EXAMPLE-cross-platform-weather-vi.md)** — Android + iOS từ một spec chung (đa nền tảng, M3).
-- **[EXAMPLE-existing-api-survey-vi.md](EXAMPLE-existing-api-survey-vi.md)** — dự án backend CÓ SẴN: Phase 0-B Survey mode đọc source thật (M3).
-- **[EXAMPLE-heavy-db-migration-vi.md](EXAMPLE-heavy-db-migration-vi.md)** — DB migration + security trên hệ thống có sẵn (M4 Heavy), gồm cả kịch bản test FAIL→fix.
+Walkthrough đơn nền tảng (greenfield, để so sánh):
+- **[EXAMPLE-ios-weather-vi.md](EXAMPLE-ios-weather-vi.md)** — iOS duy nhất, xây dựng từ đầu (M2). So sánh khi không có codebase sẵn.
