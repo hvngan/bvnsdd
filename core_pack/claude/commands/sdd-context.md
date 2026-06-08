@@ -54,6 +54,11 @@ Update:
 Verify claims against the real source (use Grep/Glob/Read). Mark anything
 uncertain in `open-issues.md`.
 
+**Multi-platform existing project.** When `platforms:` lists more than one platform and source exists in both trees:
+1. **Read platform maps first.** Check `docs/architecture/platform-android-map.md` and `docs/architecture/platform-ios-map.md` (produced by Phase 0-B). If absent, do a quick Grep of each tree to identify the current architecture pattern before speccing patterns for this ticket.
+2. **Parity gap check.** Confirm both platforms currently implement all the ACs this ticket depends on. If one platform is behind (parity debt surfaced in `system-map.md` §Parity Status), raise a blocking open issue — do not silently add the missing platform behavior to this ticket's scope without explicit acknowledgement.
+3. **No cross-contamination.** Verify each platform's APIs against that platform's own tree independently. Patterns confirmed in `android/` must not be applied to `ios/`, and vice versa.
+
 ---
 
 ## NEW PROJECT MODE (no existing implementation for this scope)

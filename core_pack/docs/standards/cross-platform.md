@@ -84,3 +84,41 @@ floor of M3**.
 If `platforms:` lists one platform, keep only that platform's subsection in each
 artifact and delete the others. Every split degrades to a single coherent
 section, and this standard imposes no extra work.
+
+## Existing codebase survey
+
+When starting BVN-SDD in an existing Android+iOS project, Phase 0-B (`/sdd-map`)
+runs in **Survey Mode** for both trees. In addition to the standard architecture
+maps, produce:
+
+- **`docs/architecture/platform-android-map.md`** — Android tree survey: package
+  structure, architecture pattern, DI framework, state management, navigation,
+  `minSdkVersion`, key existing classes and their locations, test infrastructure.
+- **`docs/architecture/platform-ios-map.md`** — iOS tree survey: module structure,
+  UI framework, architecture pattern, state management, deployment target, key
+  existing classes and their locations, test infrastructure.
+- **`system-map.md` §Parity Status** — features fully implemented on both
+  platforms (parity intact), features on one platform only (parity debt), and
+  planned features not yet on either.
+
+Phase 2 (`/sdd-context`) reads these platform maps before speccing any patterns.
+This prevents speccing APIs or patterns that do not exist in the real trees.
+
+## Parity debt
+
+**Definition**: features or behaviors present on one platform but absent or
+incomplete on the other in an existing codebase.
+
+| Parity state | Meaning | Action |
+|---|---|---|
+| Both platforms implement the feature | Intact | No action needed |
+| One platform only | Debt | Log in `system-map.md` §Parity Status; create a dedicated future ticket |
+| Neither platform has it | New feature | Spec normally in the current ticket |
+
+Rules:
+- Parity debt is surfaced in `system-map.md` §Parity Status during Phase 0-B.
+- Do **not** silently add parity-closing behavior to an unrelated ticket's scope.
+  Either make it explicit (add to §3 Scope and flag in Right-sizing) or defer it
+  to a dedicated ticket.
+- Significant parity debt raises Uncertainty in the Right-sizing score — consider
+  M4 when closing large parity gaps (many screens or a major feature layer).
