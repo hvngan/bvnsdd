@@ -7,13 +7,7 @@ allowed-tools: Read, Write, Edit, Glob
 You are creating a Strategic Compact snapshot for ticket **$ARGUMENTS**. Work in
 `docs/changes/$ARGUMENTS/`.
 
-Read first: ALL artifacts for this ticket that exist:
-`mode-decision.md`, `spec-pack.md`, `open-issues.md`, `source-availability.md`,
-`context.md`, `source-map.md`, `impact-analysis.md`, `impl-plan.md`,
-`self-review.md`, `test-plan.md`, `test-results.md`, `blackbox-testcases.md`,
-`report.md`.
-
-Do NOT read implementation source code — this command is purely a state snapshot.
+Read all existing ticket artifacts. Do NOT read implementation source code — this command is purely a state snapshot.
 
 Goal: write or update `strategic-compact.md` so that a new Claude session (or a
 human) can resume this ticket without re-reading everything from scratch. The

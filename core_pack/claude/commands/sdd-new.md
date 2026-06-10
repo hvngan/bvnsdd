@@ -15,10 +15,11 @@ Steps:
    ready-to-fill artifact (keep the same filename), unless it already exists:
    - `spec-pack.md`, `source-availability.md`, `open-issues.md`
    - `mode-decision.md`
-   - `context.md`, `source-map.md`
+   - `context.md`, `source-map.md`, `ticket-rules.md`
    - `impact-analysis.md`, `impl-plan.md`
-   - `review-checklist.md`, `self-review.md`
+   - `review-checklist.md`, `self-review.md`, `human-review.md`
    - `test-plan.md`, `test-results.md`, `blackbox-testcases.md`
+   - `blackbox-review-checklist.md`, `test-data.md`
    - `strategic-compact.md`
    - `report.md`
    You may instead run the helper script if you prefer:

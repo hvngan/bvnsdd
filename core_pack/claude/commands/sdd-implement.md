@@ -8,17 +8,13 @@ You are a senior engineer driving Phase 4 (Review Checklist) and Phase 5
 (Implementation) for ticket **$ARGUMENTS**. Work in `docs/changes/$ARGUMENTS/`
 and the source tree.
 
-Read first: `spec-pack.md`, `impl-plan.md`, `impact-analysis.md`, `context.md`,
-`review-checklist.md`, plus the target source and existing tests.
-
-**Plan first** (goal, files to read, files to change, Stop/Ask points, plan).
-Do not edit until acknowledged.
+**Plan first.** State goal, reads, writes, Stop/Ask points, steps. Do not edit until acknowledged.
 
 ## Phase 4 — Finalize Review Checklist
 
 Before writing a single line of code, finalize `review-checklist.md`:
 
-1. Read the skeleton created by `/sdd-context`.
+1. Read the blank template created by `/sdd-new`.
 2. Extend it with ticket-specific items implied by `spec-pack.md`,
    `impact-analysis.md`, and `impl-plan.md` (e.g. specific edge cases,
    migration concerns, permission boundaries unique to this ticket).

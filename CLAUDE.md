@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Repo Is
 
-`bvn-sdd-cli` is a Python CLI tool that scaffolds the **BVN-SDD V04.2 methodology** into software projects. Running `bvn-sdd init` copies `core_pack/` into a target project as three hidden directories (`.claude/`, `.bvn-sdd/`, `docs/`), giving that project AI governance rules, 13 Claude Code slash commands, and 20+ markdown artifact templates for a spec-driven development workflow.
+`bvn-sdd-cli` is a Python CLI tool that scaffolds the **BVN-SDD V04.2 methodology** into software projects. Running `bvn-sdd init` copies `core_pack/` into a target project as three hidden directories (`.claude/`, `.bvn-sdd/`, `docs/`), giving that project AI governance rules, 14 Claude Code slash commands, and 20+ markdown artifact templates for a spec-driven development workflow.
 
 The `core_pack/` directory is **the product** — the CLI exists only to deliver it correctly.
 
@@ -50,8 +50,8 @@ Three directories that become the scaffolded output:
 - **`claude/`** → `.claude/` in target project
   - `CLAUDE.md` — AI constitution (6 core principles)
   - `settings.json` — Claude Code permissions (deny secrets, ask before destructive ops)
-  - `commands/` — 13 slash command templates driving the 9-phase workflow
-  - `rules/` — 6 AI behavior rule files (safety, development, architecture, security, testing, review)
+  - `commands/` — 14 slash command templates driving the 9-phase workflow
+  - `rules/` — 7 AI behavior rule files (safety, stop-conditions, development, architecture, security, testing, review)
 
 - **`bvn-sdd/`** → `.bvn-sdd/` in target project
   - `config.yml` — language, default mode (M2), tickets_dir, artifact list
@@ -78,7 +78,7 @@ At `bvn-sdd init`, the user picks vi/en/ja. `_assets.set_language()` then:
 
 ## BVN-SDD Workflow Phases (for context when editing commands/)
 
-The 13 slash commands implement a sequential 9-phase workflow per ticket:
+The 14 slash commands implement a sequential 9-phase workflow per ticket:
 
 | Command | Phase | Output Artifacts |
 |---|---|---|
@@ -95,6 +95,7 @@ The 13 slash commands implement a sequential 9-phase workflow per ticket:
 | `/sdd-report T-001` | 8 Final Report | `report.md` |
 | `/sdd-learnings T-001` | 9 Learnings | `promotion-candidates.md`; updates `failure-mode-index.md`, `pattern-library.md` |
 | `/sdd-compact T-001` | Utility | `strategic-compact.md` (session snapshot) |
+| `/sdd-translate T-001` | Utility | `vi-review.md` (Vietnamese review of key JA artifacts — internal only) |
 
 The mode sets the **depth** of each phase — it does not skip phases. Every ticket
 (single- or multi-platform) runs the full sequence above; M1 (Light) just keeps each

@@ -42,6 +42,7 @@ while M4/M5 add depth and extra review. Only **MX** halts work.
 Run `/sdd-phase0a` once per project immediately after `bvn-sdd init` — before any tickets or `/sdd-map`.
 Run `/sdd-map` once per project before the first ticket.
 Run `/sdd-compact` at any point to snapshot session state for handoff or resume.
+Run `/sdd-translate <TICKET>` to produce a Vietnamese internal review document from the key Japanese artifacts (spec-pack, context, impact, impl-plan, test-plan, blackbox). Internal use only — not for client delivery.
 
 ## Reading order at the start of any phase
 
@@ -49,3 +50,8 @@ Run `/sdd-compact` at any point to snapshot session state for handoff or resume.
 2. `docs/architecture/*` and `docs/standards/*`
 3. `docs/changes/<TICKET>/*` (existing artifacts)
 4. The source and tests within the change's scope
+
+Phase commands list only reads *beyond* this standard order — do not re-read
+items already covered above. Universal stop/ask conditions are in
+`.claude/rules/06-stop-conditions.md`; phase-specific conditions are noted in
+each command.

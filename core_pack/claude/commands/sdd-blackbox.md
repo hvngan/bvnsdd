@@ -7,19 +7,10 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 You are the black-box tester for ticket **$ARGUMENTS**. Work in
 `docs/changes/$ARGUMENTS/`.
 
-Read first — ONLY these files:
-- `spec-pack.md` (Acceptance Criteria, Input/Output, FE/BE contract,
-  Validation/Error/Messages, Security/Permission sections)
-- `mode-decision.md` (to know the required depth — this phase runs in every mode;
-  the mode sets how many cases, not whether to run)
-- `test-plan.md` (to avoid duplicating unit/integration tests already planned)
+Read ONLY: `spec-pack.md` (AC, Input/Output, contract, Validation/Error, Security/Permission), `mode-decision.md`, `test-plan.md`.
+**Do NOT read implementation source code** — black-box tests must reflect the spec, not what was built.
 
-**Do NOT read implementation source code.** Black-box tests verify behavior from
-the outside, as a user or API caller would experience it. Reading implementation
-biases the tests toward what was built, not what was specified.
-
-**Plan first** (goal, files to read, files to update, Stop/Ask points, plan).
-Do not edit until acknowledged.
+**Plan first.** State goal, reads, writes, Stop/Ask points, steps. Do not edit until acknowledged.
 
 Goal: produce two files in the ticket folder:
 - `blackbox-testcases.md` — a concrete, runnable set of test scenarios derived
@@ -79,12 +70,9 @@ Run command: <exact command or curl or UI steps>
    `Status: Manual — not run` and explain what environment is needed.
 6. Never claim a test passed without running it.
 
-## Stop / Ask conditions
+## Stop / Ask condition
 
-- If the spec does not define the expected output for a scenario, do not invent
-  it. Add an open issue to `open-issues.md` and skip that test case.
-- If running a test would require destructive side effects (deleting production
-  data, sending real emails, charging real money), stop and ask before running.
+Spec doesn't define expected output → add open issue, skip that test case. Do not invent assertions.
 
 When done: report how many test cases were written, how many were run, how many
 passed, and how many are manual. Confirm that `test-data.md` is populated with

@@ -7,8 +7,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 You are performing **Source Intelligence** (BVN-SDD Phase 0-B) for this project.
 Run this once per project, before the first ticket.
 
-Read `.claude/CLAUDE.md`, `.claude/rules/*`, and `.bvn-sdd/config.yml`
-`platforms:` first.
+Also read `.bvn-sdd/config.yml` (platforms field).
 
 **Multi-platform.** If `platforms:` lists more than one platform, structure
 `system-map.md` as a shared-spec/contract layer plus one layer per native tree
@@ -34,11 +33,7 @@ by `/sdd-phase0a`. If the file does not exist, detect directly:
 Goal: give future phases a map so the AI never gets lost. Do a *shallow* survey
 of the repository — do not read every file.
 
-Plan first (output only the plan, then proceed once acknowledged):
-1. Goal of this mapping pass
-2. Directories/entry points you will sample
-3. Files you will create or update
-4. Anything that needs a human decision (Stop/Ask)
+**Plan first.** State: goal, directories to sample, files to create/update, Stop/Ask points. Proceed once acknowledged.
 
 Then produce/update under `docs/architecture/`:
 - `system-map.md` — high-level components and how they relate
@@ -68,11 +63,7 @@ logging) based on patterns observed in the codebase.
 Goal: document architecture decisions so the first tickets have a shared blueprint
 to build toward.
 
-Plan first (output only the plan, then proceed once acknowledged):
-1. Technology choices to confirm with the user (language, framework, DB, infra)
-2. Components and their boundaries to document
-3. Files you will create under `docs/architecture/`
-4. Any decisions that need human input (Stop/Ask)
+**Plan first.** State: technology choices to confirm, components/boundaries, files to create, Stop/Ask points. Proceed once acknowledged.
 
 Then create under `docs/architecture/`:
 - `system-map.md` — proposed components and their responsibilities; key interfaces

@@ -7,10 +7,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 You are designing and running tests for ticket **$ARGUMENTS**. Work in
 `docs/changes/$ARGUMENTS/` and the test tree.
 
-Read first: this ticket's `spec-pack.md` (Acceptance Criteria), `impl-plan.md`,
-`self-review.md`, and existing tests.
-
-**Plan first** (goal, files to read, files to update, Stop/Ask points, plan).
+**Plan first.** State goal, reads, writes, Stop/Ask points, steps.
 
 Goal: tests are evidence — catch regressions, boundary bugs, and contract
 violations, not pad coverage.
