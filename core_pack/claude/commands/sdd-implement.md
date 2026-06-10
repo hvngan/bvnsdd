@@ -18,7 +18,7 @@ Do not edit until acknowledged.
 
 Before writing a single line of code, finalize `review-checklist.md`:
 
-1. Read the skeleton created by `/sdd-context`.
+1. Read the blank template created by `/sdd-new`.
 2. Extend it with ticket-specific items implied by `spec-pack.md`,
    `impact-analysis.md`, and `impl-plan.md` (e.g. specific edge cases,
    migration concerns, permission boundaries unique to this ticket).

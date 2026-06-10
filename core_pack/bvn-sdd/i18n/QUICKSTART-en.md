@@ -49,6 +49,7 @@ Both paths use the same commands — the commands detect the mode automatically 
 
 **Utility** (Spec 32 — Long Context / Strategic Compact):
 - `/sdd-compact T-001` → `strategic-compact.md` — session snapshot. Paste at the start of a new session to resume without re-reading everything.
+- `/sdd-translate T-001` → `vi-review.md` — translates key decision artifacts (spec-pack, context, impact, impl-plan, test-plan, blackbox) into Vietnamese for dev review. **Internal use only — not for client delivery.**
 
 ## 4. Modes (decided by `/sdd-rightsize`)
 

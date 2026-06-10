@@ -50,7 +50,7 @@ Three directories that become the scaffolded output:
 - **`claude/`** → `.claude/` in target project
   - `CLAUDE.md` — AI constitution (6 core principles)
   - `settings.json` — Claude Code permissions (deny secrets, ask before destructive ops)
-  - `commands/` — 13 slash command templates driving the 9-phase workflow
+  - `commands/` — 14 slash command templates driving the 9-phase workflow
   - `rules/` — 6 AI behavior rule files (safety, development, architecture, security, testing, review)
 
 - **`bvn-sdd/`** → `.bvn-sdd/` in target project
@@ -95,6 +95,7 @@ The 13 slash commands implement a sequential 9-phase workflow per ticket:
 | `/sdd-report T-001` | 8 Final Report | `report.md` |
 | `/sdd-learnings T-001` | 9 Learnings | `promotion-candidates.md`; updates `failure-mode-index.md`, `pattern-library.md` |
 | `/sdd-compact T-001` | Utility | `strategic-compact.md` (session snapshot) |
+| `/sdd-translate T-001` | Utility | `vi-review.md` (Vietnamese review of key JA artifacts — internal only) |
 
 The mode sets the **depth** of each phase — it does not skip phases. Every ticket
 (single- or multi-platform) runs the full sequence above; M1 (Light) just keeps each

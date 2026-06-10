@@ -16,7 +16,21 @@ bvn-sdd init my-project    # プロジェクトを作成（または: bvn-sdd in
 
 次に **Claude Code でプロジェクトを開き**、すぐに `/sdd-phase0a` を実行します。
 
-## 2. SDD-Installation Pack V04.2 のフェーズ
+## 2. どのパスにいますか？
+
+| ステップ | 既存コードベース | 空リポジトリ / 新規プロジェクト |
+|---|---|---|
+| インストール | 既存リポジトリで `bvn-sdd init --here` | `git clone <empty-repo>` 後に `bvn-sdd init --here` |
+| Phase 0-A | config をaudit + tech stackを検出；`project_type = existing` を記録 | config をaudit；ソースなしを検出；`project_type = new` を記録 |
+| Phase 0-B | **Surveyモード** — ソースを読み込み、`system-map.md`、`source-inventory.md`、ルート/DBマップを生成 | **グリーンフィールドモード** — `system-map.md` をアーキテクチャ決定書として生成；すべて `[PLANNED]` でマーク；source-inventory やtest-map はまだなし |
+| Phase 2 (`/sdd-context`) | ソース内のAPI/パターンの実在を検証 | 予定APIやパターンを設計；`[PLANNED]` でマーク；`source-map.md` に**作成する**ファイルを列挙 |
+| Phase 3–9 | 既存コードに基づいて計画・実装 | ゼロから書くコードを計画・実装 |
+| 最初のチケット後 | 必要に応じて `/sdd-map` を再実行してマップを更新 | **`/sdd-map` を再実行**して `[PLANNED]` を実際のソースマップに置き換え |
+
+両方のパスで同じコマンドセットを使用します — コマンドは `/sdd-phase0a` が設定した
+`phase0-plan.md` からモードを自動検出します。
+
+## 3. SDD-Installation Pack V04.2 のフェーズ
 
 | フェーズ（V04.2） | Claude Code コマンド | 生成されるもの | あなたが行うこと |
 |---|---|---|---|
@@ -35,8 +49,9 @@ bvn-sdd init my-project    # プロジェクトを作成（または: bvn-sdd in
 
 **ユーティリティ**（Spec 32 — Long Context / Strategic Compact）:
 - `/sdd-compact T-001` → `strategic-compact.md` — セッションスナップショット。新しいセッションの冒頭に貼り付けて、すべてを再読せずに再開できます。
+- `/sdd-translate T-001` → `vi-review.md` — 主要な意思決定アーティファクト（spec-pack、context、impact、impl-plan、test-plan、blackbox）をベトナム語に翻訳し、開発チームが内部レビューできるようにします。**社内使用のみ — クライアントへの納品不可。**
 
-## 3. モード（`/sdd-rightsize` が決定）
+## 4. モード（`/sdd-rightsize` が決定）
 
 > **モードは各フェーズの「深さ」を決めるもので、フェーズをスキップしません。** 単一・
 > マルチプラットフォームを問わず、すべてのチケットが全フェーズを実行します。M1 は各
@@ -51,7 +66,7 @@ bvn-sdd init my-project    # プロジェクトを作成（または: bvn-sdd in
 | **M5** | Critical | セキュリティパッチ、本番インシデント | 最大 + 必須の人間ゲート（脅威モデル、テスト証跡、監査）；人間のリードにエスカレート |
 | **MX** | Stop | 要件が不明または高リスク | 停止 — 先にOpen Issuesを解決。作業を止める唯一のモード |
 
-## 4. 5つの必須ルール
+## 5. 5つの必須ルール
 
 1. **コードの前に計画。** AIは常に計画を先に提示します。編集の前に承認してください。
 2. **`spec-pack.md` が唯一の真実の情報源。** 不明点は `open-issues.md` へ。推測禁止。
@@ -59,7 +74,7 @@ bvn-sdd init my-project    # プロジェクトを作成（または: bvn-sdd in
 4. **シークレットに触れない。** `.env`、キー、トークン、PIIを読み取ったり出力したりしないでください。
 5. **最終的な判断者はあなた。** AIのセルフレビュー後も、あなたが読んで承認してください。
 
-## 5. STOP してエスカレーションするタイミング
+## 6. STOP してエスカレーションするタイミング
 
 - 正しく実装するためにソースが不足または読み取り不可
 - シークレットや個人情報が露出
@@ -67,13 +82,13 @@ bvn-sdd init my-project    # プロジェクトを作成（または: bvn-sdd in
 - ソースコードと仕様が矛盾している
 - AIが存在しないメソッドやファイルを使おうとしている
 
-## 6. ヒント
+## 7. ヒント
 
 - すべての結果は `docs/changes/<チケットID>/` にあります — いつでも確認できます。
 - 各コマンドの終わりに、AIが次に実行するコマンドを教えてくれます。
 - 詳細なルール: `.claude/rules/`。プロジェクト標準: `docs/standards/`。
 
-## 7. ウォークスルー例
+## 8. ウォークスルー例
 
 **既存の Android + iOS コードベース**両方に対して WeatherNow に機能を追加する完全なウォークスルーは **[EXAMPLE-cross-platform-weather-ja.md](EXAMPLE-cross-platform-weather-ja.md)** を参照してください。
 

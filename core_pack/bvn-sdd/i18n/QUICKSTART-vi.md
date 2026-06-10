@@ -49,6 +49,7 @@ Cả hai kịch bản dùng cùng tập lệnh — command tự phát hiện ch�
 
 **Lệnh tiện ích** (Spec 32 — Long Context / Strategic Compact):
 - `/sdd-compact T-001` → `strategic-compact.md` — snapshot trạng thái session. Dán vào đầu session mới để tiếp tục mà không cần đọc lại tất cả.
+- `/sdd-translate T-001` → `vi-review.md` — dịch các artifact quyết định chính (spec-pack, context, impact, impl-plan, test-plan, blackbox) sang tiếng Việt để dev review. **Chỉ dùng nội bộ — không giao client.**
 
 ## 4. Chế độ (do `/sdd-rightsize` quyết định)
 

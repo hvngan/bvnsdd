@@ -42,6 +42,7 @@ while M4/M5 add depth and extra review. Only **MX** halts work.
 Run `/sdd-phase0a` once per project immediately after `bvn-sdd init` — before any tickets or `/sdd-map`.
 Run `/sdd-map` once per project before the first ticket.
 Run `/sdd-compact` at any point to snapshot session state for handoff or resume.
+Run `/sdd-translate <TICKET>` to produce a Vietnamese internal review document from the key Japanese artifacts (spec-pack, context, impact, impl-plan, test-plan, blackbox). Internal use only — not for client delivery.
 
 ## Reading order at the start of any phase
 

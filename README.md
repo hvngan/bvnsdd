@@ -63,7 +63,18 @@ content in that language.
 
 All `/sdd-*` slash commands become available immediately.
 
-### 4. Map the codebase — once per project
+### 4. Run the project safety gate — once per project
+
+```
+/sdd-phase0a
+```
+
+Audits the project configuration, detects the tech stack and project type
+(existing codebase or green-field), and writes the safety evidence and context
+policy to `docs/maintenance/phase0/` and `docs/standards/automation/`.
+Run this immediately after `bvn-sdd init`, before `/sdd-map`.
+
+### 5. Map the codebase — once per project
 
 ```
 /sdd-map
@@ -73,7 +84,11 @@ Reads the source tree and writes architecture maps to `docs/architecture/`
 (system map, entry points, routes, APIs, DB schema, external interfaces).
 Run this before the first ticket; re-run only after large structural changes.
 
-### 5. Work a ticket
+On a **green-field project** (no source yet), `/sdd-map` creates the architecture
+as planning documents — all entries marked `[PLANNED]`. Re-run after the first
+tickets to replace `[PLANNED]` with confirmed source maps.
+
+### 6. Work a ticket
 
 ```
 /sdd-new T-001          → creates docs/changes/T-001/ with all blank artifact files
@@ -87,12 +102,14 @@ to run for the chosen mode. You do not need to decide what to skip yourself.
 For an **M2 Standard** ticket the full sequence is:
 
 ```
-/sdd-context T-001      → context.md, source-map.md
+/sdd-context T-001      → context.md, source-map.md, ticket-rules.md
 /sdd-plan T-001         → impact-analysis.md, impl-plan.md
-/sdd-implement T-001    → source code + self-review.md
+/sdd-implement T-001    → source code + review-checklist.md, self-review.md
+                          (you fill human-review.md)
 /sdd-test T-001         → test-plan.md, test-results.md
-/sdd-blackbox T-001     → blackbox-testcases.md
+/sdd-blackbox T-001     → blackbox-testcases.md, test-data.md, blackbox-review-checklist.md
 /sdd-report T-001       → report.md
+/sdd-learnings T-001    → promotion-candidates.md; updates failure-mode-index.md
 ```
 
 Use `/sdd-compact T-001` at any point to snapshot the session state into
@@ -102,16 +119,17 @@ session to resume without re-reading all artifacts from scratch.
 ## Operating modes
 
 `/sdd-rightsize` scores four criteria — Reversibility, Uncertainty, Risk, Scope —
-and maps the total to a mode. The mode determines which subsequent commands are
-required, which are optional, and which to skip entirely.
+and maps the total to a mode. The mode sets the **depth** of each phase — it does
+not skip phases. Every ticket runs the full command sequence; M1 (Light) just
+keeps each artifact brief. Only **MX** halts work entirely.
 
-| Mode | Name | Typical trigger | Commands skipped vs M2 |
+| Mode | Name | Typical trigger | Depth |
 |---|---|---|---|
-| M1 | Light | Bug fix, text change, config update | `/sdd-context`, `/sdd-plan`, `/sdd-blackbox` |
-| M2 | Standard | Normal single-service feature | — (full flow) |
-| M3 | Plus | FE+BE contract change, 10–30 files | — (extra attention on spec section 9) |
-| M4 | Heavy | Architecture change, DB migration, large refactor | — (+ security review before merge, re-run `/sdd-map`) |
-| M5 | Critical | Security patch, production incident | Escalate to human lead; minimal automation |
+| M1 | Light | Bug fix, text change, config update | All phases run; artifacts kept brief (a one-line note if nothing unique); self-review only |
+| M2 | Standard | Normal single-service feature | Standard depth for every artifact |
+| M3 | Plus | FE+BE contract change, 10–30 files | Standard + focus on FE/BE contract; add on-demand deep artifacts (contract-map, codex-review) |
+| M4 | Heavy | Architecture change, DB migration, large refactor | Full + heavy-source-analysis, security-review, rollback/migration plan, independent review |
+| M5 | Critical | Security patch, production incident | Maximum + mandatory human gate (threat model, test evidence, audit); escalate to human lead |
 | MX | Stop | Requirements unclear or risk too high | Halt all commands until open issues are resolved |
 
 ## Commands
@@ -126,21 +144,28 @@ required, which are optional, and which to skip entirely.
 
 ### Claude Code slash commands
 
-All phase commands take a ticket ID (e.g. `T-001`) as their argument.
+Project-level commands (run once per project):
 
 | Command | Phase | Artifact written |
 |---|---|---|
-| `/sdd-map` | 0-B Source Intelligence | `docs/architecture/system-map.md`, `route-api-map.md`, `service-layer-map.md`, `repository-db-map.md`, `external-interface-map.md` |
-| `/sdd-new <T>` | 0 Bootstrap | `docs/changes/<T>/` — all blank artifact files copied from templates |
+| `/sdd-phase0a` | 0-A Safety Gate | `docs/maintenance/phase0/` (audit trail) + `docs/standards/automation/` (context policy) |
+| `/sdd-map` | 0-B Source Intelligence | `docs/architecture/` — system map, route/API map, service layer map, DB map, external interface map |
+
+Per-ticket commands (all take a ticket ID, e.g. `T-001`):
+
+| Command | Phase | Artifact written |
+|---|---|---|
+| `/sdd-new <T>` | Bootstrap | `docs/changes/<T>/` — all 19 blank artifact files copied from templates |
 | `/sdd-spec <T>` | 1 Investigation | `spec-pack.md`, `source-availability.md`, `open-issues.md` |
-| `/sdd-rightsize <T>` | 1-B Mode Decision | `mode-decision.md` — chosen mode, score, adapted workflow |
-| `/sdd-context <T>` | 2 Context | `context.md`, `source-map.md` |
+| `/sdd-rightsize <T>` | 1 Mode Decision | `mode-decision.md` — chosen mode, score, adapted workflow |
+| `/sdd-context <T>` | 2 Context | `context.md`, `source-map.md`, `ticket-rules.md` |
 | `/sdd-plan <T>` | 3 Impact & Plan | `impact-analysis.md`, `impl-plan.md` |
-| `/sdd-implement <T>` | 5 Implement | source code changes + `self-review.md` |
+| `/sdd-implement <T>` | 4–5 Implement & Review | source code + `review-checklist.md`, `self-review.md` (you fill `human-review.md`) |
 | `/sdd-test <T>` | 6 Test | `test-plan.md`, `test-results.md` |
-| `/sdd-blackbox <T>` | 7 Black-box Test | `blackbox-testcases.md` — test cases derived from spec only, not from code (M2+ only) |
-| `/sdd-report <T>` | 8 Report | `report.md` — summary, AC traceability, accepted risks, follow-up items |
-| `/sdd-compact <T>` | utility (any time) | `strategic-compact.md` — session snapshot: current phase, decisions made, files read, next steps |
+| `/sdd-blackbox <T>` | 7 Black-box Test | `blackbox-testcases.md`, `test-data.md`, `blackbox-review-checklist.md` |
+| `/sdd-report <T>` | 8 Final Report | `report.md` — summary, AC traceability, accepted risks, follow-up items |
+| `/sdd-learnings <T>` | 9 Living Docs | `promotion-candidates.md`; updates `failure-mode-index.md`, `pattern-library.md` |
+| `/sdd-compact <T>` | Utility (any time) | `strategic-compact.md` — session snapshot: current phase, decisions made, files read, next steps |
 
 ## What `init` creates
 
@@ -153,20 +178,22 @@ my-project/
 │   │   ├── 00-language.md         # generated at init — instructs Claude to use chosen language
 │   │   ├── 00-safety.md           # stop conditions, destructive-operation guardrails
 │   │   ├── 10-development.md      # plan-first rule, coding standards
-│   │   ├── 20-architecture.md     # 10-level source priority, context include/exclude rules
+│   │   ├── 20-architecture.md     # source priority, context include/exclude rules
 │   │   ├── 30-security.md         # secrets, PII, external input policy
 │   │   ├── 40-testing.md          # AC-tracing, test evidence requirements
 │   │   └── 50-review.md           # severity model (Blocker/Major/Minor), review viewpoints
-│   └── commands/                  # one .md file per /sdd-* slash command
+│   └── commands/                  # one .md file per /sdd-* slash command (13 total)
 ├── .bvn-sdd/
 │   ├── config.yml                 # language, default mode, ticket artifact list
-│   ├── templates/                 # blank artifact files copied per ticket by /sdd-new
+│   ├── templates/                 # 19 blank artifact files copied per ticket by /sdd-new
+│   │   ├── phase0/                # phase 0-A templates (copied once per project)
+│   │   └── automation/            # automation policy templates (copied once per project)
 │   ├── i18n/                      # QUICKSTART-vi.md, QUICKSTART-en.md, QUICKSTART-ja.md
 │   └── scripts/                   # create-ticket helper scripts (PowerShell + bash)
 └── docs/
     ├── QUICKSTART.md              # one-page field guide in the language chosen at init
     ├── architecture/              # filled by /sdd-map; one file per map type
-    ├── standards/                 # coding.md, review.md, testing.md, security.md (stubs)
+    ├── standards/                 # coding.md, review.md, testing.md, security.md, cross-platform.md (stubs)
     ├── maintenance/               # failure-mode-index.md, pattern-library.md
     └── changes/                   # docs/changes/T-001/, T-002/, … — one folder per ticket
 ```

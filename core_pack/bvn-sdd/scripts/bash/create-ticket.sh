@@ -20,10 +20,14 @@ mkdir -p "$ticket_dir"
 
 artifacts=(
   spec-pack.md source-availability.md open-issues.md
-  context.md source-map.md
+  mode-decision.md
+  context.md source-map.md ticket-rules.md
   impact-analysis.md impl-plan.md
-  review-checklist.md self-review.md
-  test-plan.md test-results.md report.md
+  review-checklist.md self-review.md human-review.md
+  test-plan.md test-results.md blackbox-testcases.md
+  blackbox-review-checklist.md test-data.md
+  strategic-compact.md
+  report.md
 )
 
 for name in "${artifacts[@]}"; do
