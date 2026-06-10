@@ -85,7 +85,7 @@ Cả hai kịch bản dùng cùng tập lệnh — command tự phát hiện ch�
 
 - Mọi kết quả trong `docs/changes/<MÃ-TICKET>/` — mở xem bất cứ lúc nào.
 - Cuối mỗi lệnh AI nhắc bạn lệnh tiếp theo cần chạy.
-- Quy tắc chi tiết: `.claude/rules/`. Chuẩn dự án: `docs/standards/`.
+- Quy tắc chi tiết: `.claude/rules/`. Điều kiện dừng universal: `.claude/rules/06-stop-conditions.md`. Chuẩn dự án: `docs/standards/`.
 
 ## 8. Ví dụ Walkthrough
 

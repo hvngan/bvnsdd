@@ -7,11 +7,9 @@ allowed-tools: Read, Write, Edit, Glob
 You are the SDD mode selector for ticket **$ARGUMENTS**. Work in
 `docs/changes/$ARGUMENTS/`.
 
-Read first: this ticket's `spec-pack.md` (especially section 15 Complexity
-Classification) and `open-issues.md`, and `.bvn-sdd/config.yml` `platforms:`.
+Also read `.bvn-sdd/config.yml` (platforms field).
 
-**Plan first** (goal, files to read, files to update, Stop/Ask points, plan).
-Do not edit until acknowledged.
+**Plan first.** State goal, reads, writes, Stop/Ask points, steps. Do not edit until acknowledged.
 
 Goal: produce a formal `mode-decision.md` that records the chosen operating mode
 and how deep each phase goes — so every subsequent phase knows its required depth.
@@ -61,12 +59,10 @@ delivers two native trees (e.g. Android + iOS) from a single spec. Treat that as
 a **Scope = 3** contributor and apply a **mode floor of M3** (never lower).
 Record the multi-platform factor and the floor in `mode-decision.md`.
 
-## Stop / Ask conditions
+## Stop / Ask condition
 
-Immediately stop and ask a human if:
-- Any open issue in `open-issues.md` is marked as blocking and unresolved.
-- Scope is unclear enough that you cannot score Uncertainty with confidence.
-- Chosen mode is M5 or MX.
+Stop if scope is unclear enough that Uncertainty cannot be scored with confidence.
+(Blocking open issues and M5/MX triggers are covered by rule `06-stop-conditions.md`.)
 
 ## Instructions
 

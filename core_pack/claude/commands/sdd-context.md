@@ -7,9 +7,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 You are preparing the working context for ticket **$ARGUMENTS**. Work in
 `docs/changes/$ARGUMENTS/`.
 
-Read first: `.claude/CLAUDE.md`, `.claude/rules/*`, this ticket's `spec-pack.md`
-and `open-issues.md`, `docs/architecture/*`, `docs/standards/*`, and
-`.bvn-sdd/config.yml` `platforms:`.
+Also read `.bvn-sdd/config.yml` (platforms field).
 
 **Multi-platform.** If `platforms:` lists more than one platform, populate the
 `### Shared` / `### Android patterns` / `### iOS patterns` subsections of
@@ -18,8 +16,7 @@ APIs against that platform's own tree (`android/` vs `ios/`). Keep DTO/contract,
 master data, and encoding in the shared sections — never fork them per platform.
 If `platforms:` lists one platform, keep only that subsection.
 
-**Plan first** (goal, files to read, files to update, Stop/Ask points, plan).
-Do not edit until acknowledged.
+**Plan first.** State goal, reads, writes, Stop/Ask points, steps. Do not edit until acknowledged.
 
 ---
 

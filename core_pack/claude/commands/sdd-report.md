@@ -7,10 +7,6 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 You are writing the final report for ticket **$ARGUMENTS**. Work in
 `docs/changes/$ARGUMENTS/`.
 
-Read first: all artifacts for this ticket — `spec-pack.md`, `impact-analysis.md`,
-`impl-plan.md`, `self-review.md`, `test-plan.md`, `test-results.md`,
-`open-issues.md`.
-
 Update `report.md` with:
 - summary of the change
 - mapping to specification / acceptance criteria

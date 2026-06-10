@@ -7,15 +7,11 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 You are performing **Safety Gate** (BVN-SDD Phase 0-A) for this project.
 Run this **once per project**, immediately after `bvn-sdd init`, before `/sdd-map`.
 
-Read `.claude/CLAUDE.md` and `.claude/rules/*` first.
-
 Goal: document the safety environment that `bvn-sdd init` pre-configured, record
 project-specific decisions, and produce an audit trail so every future session
 can verify safety without re-checking from scratch.
 
-**Plan first.** Output only: (1) goal of this phase, (2) directories/files you
-will inspect, (3) files you will create, (4) Stop/Ask points. Do not create files
-until the plan is acknowledged.
+**Plan first.** State goal, directories to inspect, files to create, Stop/Ask points. Do not create files until acknowledged.
 
 ---
 
@@ -123,12 +119,12 @@ Pre-fill the project name and tech stack; leave checklist items unticked.
 
 ## Step 4 — Stop/Ask conditions
 
-Immediately stop and ask a human if:
-- Any `.env`, `*.key`, or credential file contains real secrets that are
-  committed to the repository (not just `.env.example`)
-- An MCP server is configured with `write`, `delete`, or `send` permissions
-  and has not been reviewed by the team
-- Production DB connection strings are present in any readable config file
+Stop and ask a human if:
+- A `.env`, `*.key`, or credential file contains real secrets committed to the repo
+  (not just `.env.example`)
+- An MCP server has `write`, `delete`, or `send` permissions and has not been
+  reviewed by the team
+- Production DB connection strings are present in a readable config file
 - A hook runs external code that cannot be inspected
 
 ---

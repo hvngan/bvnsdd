@@ -86,7 +86,7 @@ Both paths use the same commands — the commands detect the mode automatically 
 
 - All results live in `docs/changes/<TICKET-ID>/` — open them any time.
 - At the end of each command, AI tells you what to run next.
-- Detailed rules: `.claude/rules/`. Project standards: `docs/standards/`.
+- Detailed rules: `.claude/rules/`. Universal stop/ask conditions: `.claude/rules/06-stop-conditions.md`. Project standards: `docs/standards/`.
 
 ## 8. Walkthrough Example
 

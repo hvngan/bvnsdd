@@ -50,3 +50,8 @@ Run `/sdd-translate <TICKET>` to produce a Vietnamese internal review document f
 2. `docs/architecture/*` and `docs/standards/*`
 3. `docs/changes/<TICKET>/*` (existing artifacts)
 4. The source and tests within the change's scope
+
+Phase commands list only reads *beyond* this standard order — do not re-read
+items already covered above. Universal stop/ask conditions are in
+`.claude/rules/06-stop-conditions.md`; phase-specific conditions are noted in
+each command.

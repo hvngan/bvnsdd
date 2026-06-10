@@ -8,11 +8,7 @@ You are a senior engineer driving Phase 4 (Review Checklist) and Phase 5
 (Implementation) for ticket **$ARGUMENTS**. Work in `docs/changes/$ARGUMENTS/`
 and the source tree.
 
-Read first: `spec-pack.md`, `impl-plan.md`, `impact-analysis.md`, `context.md`,
-`review-checklist.md`, plus the target source and existing tests.
-
-**Plan first** (goal, files to read, files to change, Stop/Ask points, plan).
-Do not edit until acknowledged.
+**Plan first.** State goal, reads, writes, Stop/Ask points, steps. Do not edit until acknowledged.
 
 ## Phase 4 — Finalize Review Checklist
 

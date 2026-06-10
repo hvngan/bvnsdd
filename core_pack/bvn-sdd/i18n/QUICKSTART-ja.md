@@ -86,7 +86,7 @@ bvn-sdd init my-project    # プロジェクトを作成（または: bvn-sdd in
 
 - すべての結果は `docs/changes/<チケットID>/` にあります — いつでも確認できます。
 - 各コマンドの終わりに、AIが次に実行するコマンドを教えてくれます。
-- 詳細なルール: `.claude/rules/`。プロジェクト標準: `docs/standards/`。
+- 詳細なルール: `.claude/rules/`。共通STOP条件: `.claude/rules/06-stop-conditions.md`。プロジェクト標準: `docs/standards/`。
 
 ## 8. ウォークスルー例
 

@@ -7,11 +7,9 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 You are a principal engineer producing the impact analysis and implementation
 plan for ticket **$ARGUMENTS**. Work in `docs/changes/$ARGUMENTS/`.
 
-Read first: this ticket's `spec-pack.md`, `context.md`, `source-map.md`,
-`docs/architecture/*`, `docs/standards/*`, and `.bvn-sdd/config.yml` `platforms:`.
+Also read `.bvn-sdd/config.yml` (platforms field).
 
-**Plan first** (goal, files to read, files to update, Stop/Ask points, plan).
-Do not edit until acknowledged.
+**Plan first.** State goal, reads, writes, Stop/Ask points, steps. Do not edit until acknowledged.
 
 Goal: before any implementation, make clear what will change, what it affects,
 how it will be tested, and how it can be rolled back.

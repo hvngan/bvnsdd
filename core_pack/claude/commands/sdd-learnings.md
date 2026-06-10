@@ -7,12 +7,10 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 You are closing the learning loop for ticket **$ARGUMENTS**. Work in
 `docs/changes/$ARGUMENTS/`.
 
-Read first: `report.md`, `self-review.md`, `open-issues.md`, `spec-pack.md`,
-`impl-plan.md`, and the existing `docs/maintenance/failure-mode-index.md`
-(if present).
+Also read `docs/maintenance/failure-mode-index.md` and
+`docs/maintenance/pattern-library.md` (if present).
 
-**Plan first** (goal, files to read, files to change, Stop/Ask points, plan).
-Do not edit until acknowledged.
+**Plan first.** State goal, reads, writes, Stop/Ask points, steps. Do not edit until acknowledged.
 
 ## Step 1 — Identify promotion candidates
 
@@ -62,13 +60,10 @@ For each High-priority item in `promotion-candidates.md`:
 3. **Stop/Ask**: present the proposed change and wait for user confirmation.
 4. Apply only after the user confirms.
 
-## Stop / Ask conditions
+## Stop / Ask condition
 
-- If a promotion candidate would amend a rule that affects all tickets (e.g.
-  `.claude/rules/`), stop and ask before editing — other team members may be
-  relying on the current version.
-- If there are no failure modes and no candidates, confirm with the user before
-  stopping — they may want to add manual entries.
+If there are no failure modes and no candidates, confirm with the user before
+stopping — they may want to add manual entries.
 
 When done: summarize what was registered in `failure-mode-index.md`, what was
 promoted, what remains in `promotion-candidates.md` for human follow-up, and

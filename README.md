@@ -177,12 +177,13 @@ my-project/
 │   ├── rules/
 │   │   ├── 00-language.md         # generated at init — instructs Claude to use chosen language
 │   │   ├── 00-safety.md           # stop conditions, destructive-operation guardrails
+│   │   ├── 06-stop-conditions.md  # universal stop/ask conditions (referenced by all phase commands)
 │   │   ├── 10-development.md      # plan-first rule, coding standards
 │   │   ├── 20-architecture.md     # source priority, context include/exclude rules
 │   │   ├── 30-security.md         # secrets, PII, external input policy
 │   │   ├── 40-testing.md          # AC-tracing, test evidence requirements
 │   │   └── 50-review.md           # severity model (Blocker/Major/Minor), review viewpoints
-│   └── commands/                  # one .md file per /sdd-* slash command (13 total)
+│   └── commands/                  # one .md file per /sdd-* slash command (14 total)
 ├── .bvn-sdd/
 │   ├── config.yml                 # language, default mode, ticket artifact list
 │   ├── templates/                 # 19 blank artifact files copied per ticket by /sdd-new
